@@ -1,0 +1,113 @@
+:root{
+  --teal:#0da4a4;
+  --yellow:#f2b233;
+  --text:#222;
+  --bg:#f6f6f6;
+  --card:#fff;
+  --stroke:#d9d9d9;
+  --shadow:0 6px 16px rgba(0,0,0,.08);
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:Poppins, sans-serif;
+  background:var(--bg);
+  display:flex;
+  flex-direction:column;
+}
+
+/* Header fijo arriba */
+.header{
+  height:60px;
+  background:var(--teal);
+  color:#fff;
+  display:grid;
+  grid-template-columns:40px 1fr 40px;
+  align-items:center;
+  padding:0 12px;
+}
+.title{
+  margin:0;
+  text-align:center;
+  font-size:1.05rem;
+  font-weight:700;
+  letter-spacing:.08em;
+}
+.icon-btn{
+  border:0;
+  background:transparent;
+  display:grid;
+  place-items:center;
+  color:#fff;
+  cursor:pointer;
+}
+.icon-btn svg{width:22px;height:22px;fill:currentColor}
+
+/* Contenedor centrado */
+.main{
+  flex:1;
+  display:grid;
+  place-items:center;
+  padding:20px;
+}
+
+/* Card */
+.card{
+  width:100%;
+  max-width:360px;
+  background:var(--card);
+  padding:20px;
+  border:2px solid var(--stroke);
+  border-radius:14px;
+  box-shadow:var(--shadow);
+}
+.card-title{
+  margin:0 0 14px;
+  text-align:center;
+  font-size:1rem;
+  font-weight:600;
+}
+
+/* Hora */
+.time-row{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:10px;
+  margin-bottom:18px;
+}
+.clock{width:28px;height:28px;color:#000}
+.time{border:0;background:transparent;font:inherit;font-weight:600;color:#555}
+.time-text{font-weight:500;color:#000}
+
+/* Campos */
+.field{display:grid;gap:8px;margin:14px 0}
+.field label{text-align:center;font-weight:600}
+.field input{
+  width:70%;
+  margin:0 auto;
+  padding:10px 14px;
+  border-radius:999px;
+  border:2px solid var(--yellow);
+  background:#fff7e0;
+}
+
+/* Botones */
+.actions{display:flex;justify-content:space-between;gap:12px;margin-top:22px}
+.btn{
+  flex:1;
+  border-radius:999px;
+  padding:10px 14px;
+  font-weight:600;
+  border:0;
+  cursor:pointer;
+}
+.btn-primary{background:var(--yellow);color:#222}
+.btn-ghost{background:#fff7e0;color:#5a4a00;border:2px solid var(--yellow)}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Crear Itinerario</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <!-- Header superior -->
+  <header class="header">
+    <button class="icon-btn" aria-label="Abrir menú" type="button">
+      <svg viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </button>
+
+    <h1 class="title">CREAR ITINERARIO</h1>
+
+    <button class="icon-btn" aria-label="Más opciones" type="button">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg>
+    </button>
+  </header>
+
+  <!-- Contenedor centrado -->
+  <main class="main">
+    <form class="card" action="mapa.html" autocomplete="off">
+      <h2 class="card-title">Seleccionar horario</h2>
+
+      <div class="time-row">
+        <svg class="clock" viewBox="0 0 24 24">
+          <path d="M9 2h6v2H9zM11 8h2v5l4 2-.7 1.4L11 14V8z"></path>
+          <circle cx="12" cy="14" r="7" fill="none" stroke="currentColor" stroke-width="2"></circle>
+        </svg>
+        <input class="time" type="time" id="hora" name="hora" value="14:30" />
+        <output id="horaText" class="time-text" for="hora">2:30 pm</output>
+      </div>
+
+      <div class="field">
+        <label for="titulo">Título</label>
+        <input id="titulo" name="titulo" type="text" placeholder="Lorem Ipsum" />
+      </div>
+
+      <div class="field">
+        <label for="ubicacion">Ubicación</label>
+        <input id="ubicacion" name="ubicacion" type="text" placeholder="Busca o escribe una ubicación" />
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-ghost" type="reset">Borrar</button>
+        <button class="btn btn-primary" type="submit">Siguiente</button>
+      </div>
+    </form>
+  </main>
+
+  <script>
+    const timeInput = document.getElementById('hora');
+    const timeOut = document.getElementById('horaText');
+    function toAmPm(v){
+      const [hh, mm] = v.split(':').map(Number);
+      const h = ((hh + 11) % 12) + 1;
+      const suf = hh >= 12 ? 'pm' : 'am';
+      return `${h}:${mm.toString().padStart(2,'0')} ${suf}`;
+    }
+    const sync = () => timeOut.value = timeOut.textContent = toAmPm(timeInput.value);
+    timeInput.addEventListener('input', sync);
+    sync();
+  </script>
+</body>
+</html>
