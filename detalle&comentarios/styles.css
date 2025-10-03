@@ -51,7 +51,7 @@ h1 {
 
 /* Contenedor principal */
 .container {
-  width: 600px; /* Aumentamos el ancho para acomodar dos columnas */
+  width: 900px; /* Ancho más amplio para el mapa interactivo */
   background: #fff;
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.2);
@@ -170,7 +170,7 @@ h1 {
 /* Barra inferior */
 .footer-nav {
   display: flex;
-  width: 600px; /* Mismo ancho que el nuevo container */
+  width: 900px; /* Mismo ancho que el nuevo container */
   gap: 10px;
   padding: 10px;
   background: transparent;
