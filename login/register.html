@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Register</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="register.css">
+</head>
+
+<body>
+  <main class="register-container">
+    <h1 class="register-title">Register</h1>
+    <form class="register-form" action="dashboard.html" method="POST">
+      <div class="field">
+        <label for="username">Username</label>
+        <input id="username" name="username" type="text" placeholder="Tu usuario" required />
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" placeholder="Tu contraseña" required />
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" placeholder="Tu email" required />
+      </div>
+      <div class="field">
+        <label for="date_of_birth">Date of Birth</label>
+        <input id="date_of_birth" name="date_of_birth" type="date" required />
+      </div>
+      <div class="field">
+        <label for="country">Country</label>
+        <input id="country" name="country" type="text" placeholder="Tu país" required />
+      </div>
+      <a href="preferencias.html" class="btn btn-primary">→</a>
+    </form>
+    <div class="options">
+      <p>¿Ya tienes una cuenta? <a href="login.html">Iniciar sesión</a></p>
+      <div class="social-buttons">
+        <button class="btn social-btn">FB</button>
+        <button class="btn social-btn">Google</button>
+        <button class="btn social-btn">GitHub</button>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

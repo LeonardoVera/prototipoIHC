@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Preferencias</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="preferencias.css">
+</head>
+
+<body>
+  <!-- Header superior -->
+  <header class="header">
+    <button class="icon-btn" aria-label="Abrir menú" type="button">
+      <svg viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </button>
+
+    <h1 class="title">SELECCIONE SUS PREFERENCIAS</h1>
+
+    <button class="icon-btn" aria-label="Más opciones" type="button">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg>
+    </button>
+  </header>
+
+  <!-- Contenedor centrado -->
+  <main class="main">
+    <div class="fields-container">
+  <div class="column">
+    <div class="field">
+      <h2 class="field-title">Tipo de destino</h2>
+      <div class="options-group">
+        <button class="option-btn">Playa</button>
+        <button class="option-btn">Montañas</button>
+        <button class="option-btn">Selvas</button>
+        <button class="option-btn">Ciudad</button>
+        <button class="option-btn">Pueblos</button>
+      </div>
+    </div>
+
+    <div class="field">
+      <h2 class="field-title">Actividades favoritas</h2>
+      <div class="options-group">
+        <button class="option-btn">Senderismo</button>
+        <button class="option-btn">Compras</button>
+        <button class="option-btn">Gastronomía</button>
+        <button class="option-btn">Museos</button>
+        <button class="option-btn">Deportes</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="column">
+    <div class="field">
+      <h2 class="field-title">Estilo de viaje</h2>
+      <div class="options-group">
+        <button class="option-btn">Aventura</button>
+        <button class="option-btn">Familiar</button>
+        <button class="option-btn">Ecológico</button>
+        <button class="option-btn">Romántico</button>
+        <button class="option-btn">Lujo</button>
+      </div>
+    </div>
+
+    <div class="field">
+      <h2 class="field-title">Clima preferido</h2>
+      <div class="options-group">
+        <button class="option-btn">Cálido</button>
+        <button class="option-btn">Frío</button>
+        <button class="option-btn">Templado</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="actions">
+      <button class="btn btn-ghost">Omitir</button>
+      <button class="btn btn-primary">Continuar</button>
+    </div>
+  </main>
+</body>
+</html>
