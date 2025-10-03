@@ -8,6 +8,10 @@ body {
   flex-direction: column;
 }
 
+h1 {
+  font-family: Poppins, Arial, sans-serif;
+}
+
 /* Encabezado */
 .main-header {
   width: 100%;
