@@ -1,5 +1,5 @@
 body {
-  font-family: Poppins;
+  font-family: Poppins, Arial, sans-serif;
   background: #f5f5f5;
   margin: 0;
   padding: 0;
@@ -15,10 +15,10 @@ body {
   color: white;
   padding: 20px;
   display: flex;
-  justify-content: center; /* centramos el contenido */
+  justify-content: center;
   align-items: center;
   font-size: 18px;
-  position: relative; /* importante para posicionar el ícono */
+  position: relative;
 }
 
 .main-header h1 {
@@ -32,7 +32,7 @@ body {
   font-size: 22px;
   cursor: pointer;
   position: absolute;
-  left: 12px; /* siempre pegado al lado izquierdo */
+  left: 12px;
 }
 
 /* Área del contenido principal */
@@ -41,26 +41,61 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   padding: 20px 0;
-  gap: 40px; /* Mayor espacio entre el container y el footer-nav */
+  gap: 40px;
 }
 
 /* Contenedor principal */
 .container {
-  width: 360px;
+  width: 600px; /* Aumentamos el ancho para acomodar dos columnas */
   background: #fff;
-  margin: 0; /* removemos margen ya que el centrado se hace con el wrapper */
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.2);
   overflow: hidden;
   display: flex;    
   flex-direction: column;
-  justify-content: center;
 }
 
 .section {
   padding: 15px;
+}
+
+/* Layout de dos columnas */
+.two-columns {
+  display: flex;
+  gap: 20px; /* Espacio entre columnas */
+}
+
+.left-column {
+  flex: 1.5; /* Ocupa menos espacio, aproximadamente 60% */
+  min-height: 600px; /* Asegura suficiente altura para que la distribución funcione */
+}
+
+.right-column {
+  flex: 1.2; /* Ocupa más espacio, aproximadamente 40% */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Distribuye las imágenes: arriba, centro, abajo */
+  align-items: stretch; /* Las imágenes ocupan todo el ancho */
+  min-height: 600px; /* Mayor altura para mejor distribución */
+  padding: 10px 0; /* Padding superior e inferior */
+}
+
+.right-column .image {
+  width: 100%;
+  height: 180px; /* Imágenes más grandes */
+  object-fit: cover; /* Mantiene la proporción sin distorsión */
+  border-radius: 8px;
+  flex-shrink: 0; /* Evita que se compriman */
+}
+
+/* Título principal centrado */
+.main-title {
+  text-align: center;
+  font-size: 22px;
+  margin-bottom: 20px;
+  color: #333;
+  font-weight: bold;
 }
 
 .section h2 {
@@ -97,13 +132,44 @@ body {
   margin-top: 10px;
 }
 
+/* Actividades */
+.actividades {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
+}
+
+.actividades li {
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+.btn-route {
+  margin: 15px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Seguridad */
+.seguridad {
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.status-green {
+  font-weight: bold;
+}
+
 /* Barra inferior */
 .footer-nav {
   display: flex;
-  width: 360px; /* Mismo ancho que el container */
-  gap: 10px; /* Espacio entre los botones */
-  padding: 10px; /* Padding interno del contenedor */
-  background: transparent; /* Quitamos el fondo para que se vean los botones separados */
+  width: 600px; /* Mismo ancho que el nuevo container */
+  gap: 10px;
+  padding: 10px;
+  background: transparent;
 }
 
 .footer-btn {
@@ -114,7 +180,7 @@ body {
   cursor: pointer;
   color: #fff;
   background: #6c5ce7;
-  border-radius: 12px; /* Bordes completamente redondeados */
+  border-radius: 12px;
 }
 
 /* Comentarios */
