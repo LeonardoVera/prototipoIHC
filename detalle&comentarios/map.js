@@ -1,34 +1,33 @@
-// Inicializar mapa
-var map = L.map('map').setView([-12.0464, -77.0428], 12); // Lima
+// Inicializar mapa con lima
+var map = L.map('map').setView([-12.0464, -77.0428], 12);
 
 // Cargar tiles (vista del mapa)
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '© OpenStreetMap contributors'
 }).addTo(map);
 
-// Lista de lugares con coordenadas
+
 var lugares = [
   {
     nombre: "Museo Nacional de Arqueología",
     coords: [-12.073056, -77.083056],
     img: "../images/catedral.jpg",
-    url: "#"
+    url: "#" // Enlace al detalle del lugar
   },
   {
     nombre: "Barranco",
     coords: [-12.1506, -77.0219],
     img: "../images/amanecer.jpg",
-    url: "#"
+    url: "#" // Enlace al detalle del lugar
   },
   {
     nombre: "Centro Histórico",
     coords: [-12.0464, -77.0428],
     img: "../images/la-punta.jpg",
-    url: "#"
+    url: "#" // Enlace al detalle del lugar
   }
 ];
 
-// Función para mostrar información en el panel lateral
 function mostrarInfoLugar(lugar) {
   const infoPanel = document.getElementById('infoPanel');
   infoPanel.innerHTML = `
@@ -42,11 +41,9 @@ function mostrarInfoLugar(lugar) {
   `;
 }
 
-// Añadir marcadores con evento click
 lugares.forEach(lugar => {
   var marker = L.marker(lugar.coords).addTo(map);
   
-  // Al hacer clic en el marcador, mostrar info en el panel lateral
   marker.on('click', function() {
     mostrarInfoLugar(lugar);
   });
