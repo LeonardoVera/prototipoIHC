@@ -1,0 +1,137 @@
+:root {
+  --teal: #0da4a4;
+  --yellow: #f2b233;
+  --text: #222;
+  --bg: #f6f6f6;
+  --card: #fff;
+  --stroke: #d9d9d9;
+  --shadow: 0 6px 16px rgba(0, 0, 0, .08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Poppins, sans-serif;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.header {
+  height: 60px;
+  background: var(--teal);
+  color: #fff;
+  display: grid;
+  grid-template-columns: 40px 1fr 40px;
+  align-items: center;
+  padding: 0 12px;
+}
+
+.title {
+  margin: 0;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+}
+
+.icon-btn {
+  border: 0;
+  background: transparent;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  cursor: pointer;
+}
+
+.icon-btn svg {
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+}
+
+.main {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+
+.fields-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  max-width: 800px;
+}
+
+.column {
+  flex: 1;
+  margin: 0 10px;
+}
+
+.field {
+  background: var(--card);
+  padding: 20px;
+  border: 2px solid var(--stroke);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  margin-bottom: 20px;
+}
+
+.field-title {
+  margin: 0 0 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.options-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; 
+  justify-content: space-between; 
+}
+
+.option-btn {
+  background: rgba(242, 178, 51, 0.7);
+  border: none;
+  border-radius: 999px; 
+  padding: 10px 14px;
+  color: #222;
+  cursor: pointer;
+  font-weight: bold;
+  flex: 1 1 calc(48% - 10px); 
+  min-width: 120px;
+  height: 40px; 
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.btn {
+  border-radius: 999px;
+  padding: 10px 14px;
+  font-weight: 600;
+  border: 0;
+  cursor: pointer;
+  flex: 1; 
+  height: 40px; 
+  margin-left: 10px; 
+}
+
+.btn-primary {
+  background: var(--yellow);
+  color: #222;
+}
+
+.btn-ghost {
+  background: #fff;
+  color: #5a4a00;
+  border: 2px solid var(--yellow);
+}
