@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Lugares Cercanos</title>
+  <link rel="stylesheet" href="styles2.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+</head>
+<body>
+
+  <header class="main-header">
+    <span class="menu-icon">&#9776;</span>
+    <h1>Lugares cercanos</h1>
+  </header>
+
+  <div class="content-area">
+    <div class="container">
+      <h2 class="main-title">Explora lo que tienes alrededor</h2>
+
+      <div class="map-layout">
+        <div id="map"></div>
+
+        <div class="info-panel" id="infoPanel">
+          <div class="panel-info">
+            <h3>Selecciona un lugar</h3>
+            <img src="" alt="Imagen lugar" id="panelImg" style="display: none;">
+            <p id="panelDesc" class="instruction">Haz clic en un marcador para ver detalles del lugar.</p>
+          </div>
+          <div class="panel-button">
+            <button class="ver-lugar-btn" id="btnVerLugar" disabled>Ver más</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <!-- Script propio -->
+  <script src="lugares.js"></script>
+</body>
+</html>
