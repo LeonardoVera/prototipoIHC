@@ -1,42 +1,60 @@
 import { useState } from "react";
 import TabNavigator from "../components/TabNavigator";
 import TabButton from "../components/TabButton";
+import Button from "../components/Button";
+import ImageCarousel from "../components/details/ImageCarousel";
+
+// 2. DATOS DE EJEMPLO (esto vendría de una API)
+const placeImages = [
+  { id: 1, url: 'https://wallpapers.com/images/hd/1920-x-1080-naruto-puo1nvsest4fw828.jpg', description: 'Vista de la pirámide principal' },
+  { id: 2, url: 'https://wallpapers.com/images/hd/1920-x-1080-naruto-puo1nvsest4fw828.jpg', description: 'Adobes de cerca (Técnica del librero)' },
+  { id: 3, url: 'https://wallpapers.com/images/hd/1920-x-1080-naruto-puo1nvsest4fw828.jpg', description: 'Recorrido superior' },
+  { id: 4, url: 'https://wallpapers.com/images/hd/1920-x-1080-naruto-puo1nvsest4fw828.jpg', description: 'Restaurante con vista' },
+];
+
 
 export default function PlaceDetails() {
-  // Estado para saber qué pestaña está activa
-  const [activeTab, setActiveTab] = useState('info'); // 'info' o 'comments'
+  const [activeTab, setActiveTab] = useState('info');
 
   return (
-    // Este es el contenedor principal que centra todo en la web
     <div className="min-h-screen bg-gray-100 flex justify-center items-center p-4">
-      
-      {/* Esta es la tarjeta/modal que simula tu app */}
       <div className="max-w-md w-full bg-white shadow-xl rounded-xl flex flex-col">
         
-        {/* 1. Contenido Principal */}
         <div className="p-6 flex-grow">
-          {/* Aquí iría todo el contenido (Título, Fotos, Descripción, etc.)
-          */}
+          {/* Aquí iría el Título, InfoRápida (Ubicación, etc) */}
+          
+          <Button to="/itinerario">
+            Cómo llegar
+          </Button>
+          
+          {/* --- RENDERIZADO CONDICIONAL --- */}
 
-          {/* Renderizado Condicional del Contenido */}
           {activeTab === 'info' && (
-            <div>
-              <h2 className="text-xl font-bold mb-2">Información del Lugar</h2>
-              <p>Aquí va toda la descripción, "Qué ver y hacer", etc.</p>
-              {/* <InfoContent /> */}
+            <div className="mt-6 space-y-4">
+              {/* 3. USAR EL CAROUSEL AQUÍ */}
+              <ImageCarousel images={placeImages} />
+              
+              <div>
+                <h2 className="text-xl font-bold mb-2">Descripción</h2>
+                <p>La Huaca Pucllana es un importante centro ceremonial...</p>
+              </div>
+              
+              <div>
+                <h2 className="text-xl font-bold mb-2">Qué ver y hacer</h2>
+                <p>Recorrer la pirámide y los patios...</p>
+              </div>
             </div>
           )}
 
           {activeTab === 'comments' && (
-            <div>
+            <div className="mt-6">
               <h2 className="text-xl font-bold mb-2">Comentarios</h2>
-              <p>Aquí iría la lista de comentarios de los usuarios...</p>
-              {/* <CommentsContent /> */}
+              <p>Aquí iría la lista de comentarios...</p>
             </div>
           )}
         </div>
 
-        {/* 2. Barra de Navegación (Tabs) */}
+        {/* --- BARRA DE NAVEGACIÓN --- */}
         <div className="border-t border-gray-200">
           <TabNavigator>
             <TabButton
