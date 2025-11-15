@@ -1,10 +1,8 @@
-// ACA PUEDE IR LA RUTA
-function App() {
+import PlaceDetails from "./pages/PlaceDetails";
 
-  // Cambiamos el fragmento <> por un <div> para aplicar los estilos de fondo y centrado
-  return (
-    <>
-    </>
+function App() {
+  return(
+    <PlaceDetails />
   )
 }
 
