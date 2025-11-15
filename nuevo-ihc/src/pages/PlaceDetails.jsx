@@ -3,6 +3,8 @@ import TabNavigator from "../components/TabNavigator";
 import TabButton from "../components/TabButton";
 import Button from "../components/Button";
 import ImageCarousel from "../components/details/ImageCarousel";
+import SectionHeader from "../components/details/SectionHeader";
+import BodyText from "../components/details/BodyText";
 
 // 2. DATOS DE EJEMPLO (esto vendría de una API)
 const placeImages = [
@@ -35,14 +37,21 @@ export default function PlaceDetails() {
               <ImageCarousel images={placeImages} />
               
               <div>
-                <h2 className="text-xl font-bold mb-2">Descripción</h2>
-                <p>La Huaca Pucllana es un importante centro ceremonial...</p>
+                <SectionHeader>Descripción</SectionHeader>
+                <BodyText>
+                  La Huaca Pucllana es un importante centro ceremonial de la
+                  cultura Lima (200–700 d.C.). Este complejo arqueológico...
+                </BodyText>
               </div>
               
               <div>
-                <h2 className="text-xl font-bold mb-2">Qué ver y hacer</h2>
-                <p>Recorrer la pirámide y los patios...</p>
+                <SectionHeader>Qué ver y hacer</SectionHeader>
+                <BodyText>
+                  Aquí iría la lista de viñetas, o puedes usar BodyText
+                  si es un párrafo. (Luego crearemos el BulletedList).
+                </BodyText>
               </div>
+              
             </div>
           )}
 
