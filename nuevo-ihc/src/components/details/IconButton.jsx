@@ -13,7 +13,6 @@ export default function IconButton({ children, onClick, ariaLabel, className = '
         ${className}
       `}
     >
-      {/* Espera un SVG con clases de tamaño, ej. w-6 h-6 */}
       {children}
     </button>
   );

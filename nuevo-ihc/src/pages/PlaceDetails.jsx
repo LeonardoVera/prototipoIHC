@@ -2,69 +2,78 @@ import { useState } from "react";
 import TabNavigator from "../components/TabNavigator";
 import TabButton from "../components/TabButton";
 import Button from "../components/Button";
+import PageHeader from "../components/PageHeader";
+
+import { getPlaceById } from "../data/MockDataBase";
+
 import ImageCarousel from "../components/details/ImageCarousel";
 import SectionHeader from "../components/details/SectionHeader";
 import BodyText from "../components/details/BodyText";
 import BulletedList from "../components/details/BulletedList";
 import ListItem from "../components/details/ListItem";
-import PageHeader from "../components/PageHeader";
+import PlaceTitle from "../components/details/PlaceTitle"; // <-- AÑADIDO
+import InfoBlock from "../components/details/InfoBlock";   // <-- AÑADIDO
+import InfoRow from "../components/details/InfoRow";     // <-- AÑADIDO
+import SecurityInfo from "../components/details/SecurityInfo";
+import { IoLocationSharp, IoPricetag } from "react-icons/io5";
+import { CiClock2 } from "react-icons/ci";
+import { useParams } from "react-router-dom";
 
-const LocationIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-full h-full">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
-    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
-  </svg>
-);
-const ClockIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-full h-full">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-  </svg>
-);
-const TicketIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-full h-full">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-1.5h5.25m-7.5 0h7.5m-7.5 0H3.375c-.621 0-1.125-.504-1.125-1.125V8.25c0-.621.504-1.125 1.125-1.125h17.25c.621 0 1.125.504 1.125 1.125v8.25c0 .621-.504 1.125-1.125 1.125H16.5m-1.5-1.5H15" />
-  </svg>
-);
-
-// 2. DATOS DE EJEMPLO (esto vendría de una API)
-const placeImages = [
-  { id: 1, url: 'https://wallpapers.com/images/hd/1920-x-1080-naruto-puo1nvsest4fw828.jpg', description: 'Vista de la pirámide principal' },
-  { id: 2, url: 'https://wallpapers.com/images/hd/1920-x-1080-naruto-puo1nvsest4fw828.jpg', description: 'Adobes de cerca (Técnica del librero)' },
-  { id: 3, url: 'https://wallpapers.com/images/hd/1920-x-1080-naruto-puo1nvsest4fw828.jpg', description: 'Recorrido superior' },
-  { id: 4, url: 'https://wallpapers.com/images/hd/1920-x-1080-naruto-puo1nvsest4fw828.jpg', description: 'Restaurante con vista' },
-];
-
+const LocationIcon = () => (<IoLocationSharp />);
+const ClockIcon = () => (<CiClock2 />);
+const TicketIcon = () => (<IoPricetag />);
 
 export default function PlaceDetails() {
   const [activeTab, setActiveTab] = useState('info');
 
+  const { id } = useParams();
+  const placeData = getPlaceById(id);
+
   const handleClose = () => {
-    // Aquí usarías la navegación, por ejemplo:
-    // navigate(-1); // (Si usas react-router-dom)
+    // Aquí usarías la navegación
     console.log("Cerrar/Volver");
   };
 
   const handleShare = () => {
     console.log("Compartir");
-    // Aquí iría la lógica para compartir (ej. Web Share API)
+    // Lógica para compartir
   };
 
   return (
     <div className="min-h-screen bg-gray-100 flex justify-center items-center p-4">
-      <div className="max-w-md w-full bg-white shadow-xl rounded-xl flex flex-col">
+      <div className="max-w-md w-full bg-white shadow-xl rounded-xl flex flex-col overflow-hidden">
+        
         <PageHeader onShareClick={handleShare} onCloseClick={handleClose} />
-        <div className="p-6 flex-grow">
-          {/* Aquí iría el Título, InfoRápida (Ubicación, etc) */}
+        
+        {/* Contenido principal con padding */}
+        <main className="p-6 pt-0 flex-grow">
           
-          <Button to="/itinerario">
-            Cómo llegar
-          </Button>
+          {/* --- BLOQUE DE TÍTULO E INFO (AÑADIDO) --- */}
+          <PlaceTitle>Huaca Pucllana</PlaceTitle>
+
+          <InfoBlock>
+            <InfoRow icon={<LocationIcon />}>
+              Miraflores, Lima, Perú
+            </InfoRow>
+            <InfoRow icon={<ClockIcon />}>
+              Abierto: 9:00 AM - 5:00 PM
+            </InfoRow>
+            <InfoRow icon={<TicketIcon />}>
+              Entrada: S/ 15.00
+            </InfoRow>
+          </InfoBlock>
+          {/* --- FIN DE BLOQUE AÑADIDO --- */}
+
+          <div className="my-6">
+            <Button to="/itinerario">
+              Cómo llegar
+            </Button>
+          </div>
           
           {/* --- RENDERIZADO CONDICIONAL --- */}
 
           {activeTab === 'info' && (
             <div className="mt-6 space-y-4">
-              {/* 3. USAR EL CAROUSEL AQUÍ */}
               <ImageCarousel images={placeImages} />
               
               <div>
@@ -92,20 +101,26 @@ export default function PlaceDetails() {
                   </ListItem>
                 </BulletedList>
               </div>
+
+              <div className="pt-4 mt-4 border-t border-gray-100">
+                <SecurityInfo level="safe"/>
+              </div>
               
             </div>
           )}
 
           {activeTab === 'comments' && (
             <div className="mt-6">
-              <h2 className="text-xl font-bold mb-2">Comentarios</h2>
-              <p>Aquí iría la lista de comentarios...</p>
+              <SectionHeader>Comentarios</SectionHeader>
+              <BodyText>
+                Aquí iría la lista de comentarios...
+              </BodyText>
             </div>
           )}
-        </div>
+        </main>
 
         {/* --- BARRA DE NAVEGACIÓN --- */}
-        <div className="border-t border-gray-200">
+        <div className="border-t border-gray-200 sticky bottom-0 bg-white">
           <TabNavigator>
             <TabButton
               isActive={activeTab === 'info'}
