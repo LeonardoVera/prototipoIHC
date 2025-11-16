@@ -11,9 +11,9 @@ import SectionHeader from "../components/details/SectionHeader";
 import BodyText from "../components/details/BodyText";
 import BulletedList from "../components/details/BulletedList";
 import ListItem from "../components/details/ListItem";
-import PlaceTitle from "../components/details/PlaceTitle"; // <-- AÑADIDO
-import InfoBlock from "../components/details/InfoBlock";   // <-- AÑADIDO
-import InfoRow from "../components/details/InfoRow";     // <-- AÑADIDO
+import PlaceTitle from "../components/details/PlaceTitle";
+import InfoBlock from "../components/details/InfoBlock"; 
+import InfoRow from "../components/details/InfoRow";  
 import SecurityInfo from "../components/details/SecurityInfo";
 import { IoLocationSharp, IoPricetag } from "react-icons/io5";
 import { CiClock2 } from "react-icons/ci";
@@ -39,6 +39,14 @@ export default function PlaceDetails() {
     // Lógica para compartir
   };
 
+  if (!placeData) {
+    return (
+      <div className="min-h-screen flex justify-center items-center">
+        <p className="text-gray-500">Lugar no encontrado.</p>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gray-100 flex justify-center items-center p-4">
       <div className="max-w-md w-full bg-white shadow-xl rounded-xl flex flex-col overflow-hidden">
@@ -49,17 +57,17 @@ export default function PlaceDetails() {
         <main className="p-6 pt-0 flex-grow">
           
           {/* --- BLOQUE DE TÍTULO E INFO (AÑADIDO) --- */}
-          <PlaceTitle>Huaca Pucllana</PlaceTitle>
+          <PlaceTitle>{placeData.name}</PlaceTitle>
 
           <InfoBlock>
             <InfoRow icon={<LocationIcon />}>
-              Miraflores, Lima, Perú
+              {placeData.location}
             </InfoRow>
             <InfoRow icon={<ClockIcon />}>
-              Abierto: 9:00 AM - 5:00 PM
+              {placeData.schedule}
             </InfoRow>
             <InfoRow icon={<TicketIcon />}>
-              Entrada: S/ 15.00
+              {placeData.price}
             </InfoRow>
           </InfoBlock>
           {/* --- FIN DE BLOQUE AÑADIDO --- */}
@@ -74,36 +82,28 @@ export default function PlaceDetails() {
 
           {activeTab === 'info' && (
             <div className="mt-6 space-y-4">
-              <ImageCarousel images={placeImages} />
+              <ImageCarousel images={placeData.images} />
               
               <div>
                 <SectionHeader>Descripción</SectionHeader>
                 <BodyText>
-                  La Huaca Pucllana es un importante centro ceremonial de la
-                  cultura Lima (200–700 d.C.). Este complejo arqueológico...
+                  {placeData.description}
                 </BodyText>
               </div>
               
               <div>
                 <SectionHeader>Qué ver y hacer</SectionHeader>
                   <BulletedList>
-                  <ListItem>
-                    Recorrer la pirámide y los patios ceremoniales.
-                  </ListItem>
-                  <ListItem>
-                    Visitar el museo de sitio con piezas originales.
-                  </ListItem>
-                  <ListItem>
-                    Disfrutar de una comida en el restaurante Huaca Pucllana.
-                  </ListItem>
-                  <ListItem>
-                    Ideal para fotos culturales y panorámicas de Lima.
-                  </ListItem>
+                    {placeData.whatToDo.map((item, index)=> (
+                      <ListItem key = {index}>
+                        {item}
+                      </ListItem>
+                    ))}
                 </BulletedList>
               </div>
 
               <div className="pt-4 mt-4 border-t border-gray-100">
-                <SecurityInfo level="safe"/>
+                <SecurityInfo level={placeData.security.level}/>
               </div>
               
             </div>

@@ -1,5 +1,9 @@
 // --- Base de Datos Simulada ---
 // Usamos un objeto donde la 'key' es el ID
+import imgHuacaMain from "../assets/Huaca-pucllana-piramide-principal.jpg";
+import imgHuacaCerca from "../assets/huaca-pucllana-cerca.jpg";
+import imgRestaurante from "../assets/Restaurante-Huaca pucllana.avif";
+
 const placesData = {
   
   'huaca-pucllana': {
@@ -9,9 +13,9 @@ const placesData = {
     price: 'Entrada: S/ 15.00',
     security: { level: 'safe' },
     images: [
-      { id: 1, url: 'https://images.unsplash.com/photo-1588623259480-cf6f3e1374d2', description: 'Vista de la pirámide principal' },
-      { id: 2, url: 'https://images.unsplash.com/photo-1543389886-c1c55047f6d7', description: 'Adobes de cerca' },
-      { id: 3, url: 'https://images.unsplash.com/photo-1621591823908-b193630a6c20', description: 'Recorrido superior' },
+      { id: 1, url: imgHuacaMain, description: 'Vista de la pirámide principal' },
+      { id: 2, url: imgHuacaCerca, description: 'Adobes de cerca' },
+      { id: 3, url: imgRestaurante, description: 'Restaurante Pucllano' },
     ],
     description: 'La Huaca Pucllana es un importante centro ceremonial de la cultura Lima (200–700 d.C.). Este complejo arqueológico...',
     whatToDo: [
@@ -29,8 +33,8 @@ const placesData = {
     price: 'Entrada: S/ 4.00',
     security: { level: 'warning' }, // Nivel de seguridad medio
     images: [
-      { id: 1, url: 'https://images.unsplash.com/photo-1602002347738-163e41982823', description: 'Fuente de la Fantasía' },
-      { id: 2, url: 'https://images.unsplash.com/photo-1599818464003-87b68672d1f7', description: 'Túnel de las Sorpresas' },
+      { id: 1, url: 'https://peru.info/archivos/publicacion/157-imagen-15292027122021.jpg', description: 'Fuente de la Fantasía' },
+      { id: 2, url: 'https://circuitomagicodelagua.pe/wp-content/uploads/2025/02/history1.jpg', description: 'Funte de la Fantasía' },
     ],
     description: 'Conocido como el "Parque de las Aguas", es un conjunto de trece fuentes ornamentales que ofrecen un espectáculo de agua, luz y música.',
     whatToDo: [
