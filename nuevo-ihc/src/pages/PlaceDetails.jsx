@@ -56,33 +56,30 @@ export default function PlaceDetails() {
         {/* Contenido principal con padding */}
         <main className="p-6 pt-0 flex-grow">
           
-          {/* --- BLOQUE DE TÍTULO E INFO (AÑADIDO) --- */}
-          <PlaceTitle>{placeData.name}</PlaceTitle>
-
-          <InfoBlock>
-            <InfoRow icon={<LocationIcon />}>
-              {placeData.location}
-            </InfoRow>
-            <InfoRow icon={<ClockIcon />}>
-              {placeData.schedule}
-            </InfoRow>
-            <InfoRow icon={<TicketIcon />}>
-              {placeData.price}
-            </InfoRow>
-          </InfoBlock>
-          {/* --- FIN DE BLOQUE AÑADIDO --- */}
-
-          <div className="my-6">
-            <Button to="/itinerario">
-              Cómo llegar
-            </Button>
-          </div>
-          
           {/* --- RENDERIZADO CONDICIONAL --- */}
 
           {activeTab === 'info' && (
             <div className="mt-6 space-y-4">
+              <PlaceTitle>{placeData.name}</PlaceTitle>
+
+              <InfoBlock>
+                <InfoRow icon={<LocationIcon />}>
+                  {placeData.location}
+                </InfoRow>
+                <InfoRow icon={<ClockIcon />}>
+                  {placeData.schedule}
+                </InfoRow>
+                <InfoRow icon={<TicketIcon />}>
+                  {placeData.price}
+                </InfoRow>
+              </InfoBlock>
               <ImageCarousel images={placeData.images} />
+
+              <div className="my-6">
+                <Button to="/itinerario">
+                  Cómo llegar
+                </Button>
+              </div>
               
               <div>
                 <SectionHeader>Descripción</SectionHeader>
