@@ -7,7 +7,7 @@ function App() {
   return (
     <MemoryRouter 
       // Le decimos qué "URL de mentira" debe simular.
-      initialEntries={["/lugar/parque-aguas"]}
+      initialEntries={["/lugar/huaca-pucllana"]}
     >
       <Routes>
         {/* 4. Definimos la misma ruta que usará tu componente

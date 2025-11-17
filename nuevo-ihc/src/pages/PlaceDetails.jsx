@@ -18,6 +18,7 @@ import SecurityInfo from "../components/details/SecurityInfo";
 import { IoLocationSharp, IoPricetag } from "react-icons/io5";
 import { CiClock2 } from "react-icons/ci";
 import { useParams } from "react-router-dom";
+import CommentSection from "../components/comments/CommentSection";
 
 const LocationIcon = () => (<IoLocationSharp />);
 const ClockIcon = () => (<CiClock2 />);
@@ -109,9 +110,10 @@ export default function PlaceDetails() {
           {activeTab === 'comments' && (
             <div className="mt-6">
               <SectionHeader>Comentarios</SectionHeader>
-              <BodyText>
-                Aquí iría la lista de comentarios...
-              </BodyText>
+              <CommentSection 
+                ratings={placeData.ratingsSummary}
+                comments={placeData.comments}
+              />
             </div>
           )}
         </main>

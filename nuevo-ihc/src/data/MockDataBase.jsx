@@ -24,6 +24,32 @@ const placesData = {
       'Disfrutar de una comida en el restaurante Huaca Pucllana.',
       'Ideal para fotos culturales y panorámicas de Lima.',
     ],
+    ratingsSummary: {
+      averageRating: 4.4,
+      totalRatings: 35415,
+      // % de 5, 4, 3, 2, 1 estrellas
+      ratingBreakdown: [65, 20, 10, 3, 2], 
+    },
+    comments: [
+      {
+        id: 1,
+        username: 'sofiaviajera',
+        userAvatarUrl: 'https://placehold.co/100x100/f87171/ffffff?text=S', // Avatar de Sofia
+        date: '15/09/2025',
+        text: 'El recorrido estuvo muy bien organizado y los guías fueron atentos en todo momento. Me gustó que se incluyeran tanto espacios culturales como naturales. El tiempo en cada punto fue adecuado para...',
+        likes: 15,
+        dislikes: 2
+      },
+      {
+        id: 2,
+        username: 'carlosenruta',
+        userAvatarUrl: 'https://placehold.co/100x100/60a5fa/ffffff?text=C', // Avatar de Carlos
+        date: '15/09/2025',
+        text: 'La ruta fue interesante, aunque en algunos lugares se quedó corta la visita. Hubiera sido ideal tener más tiempo en el Parque Kennedy. ¡El guía excelente!',
+        likes: 8,
+        dislikes: 0
+      }
+    ],
   },
   
   'parque-aguas': {
@@ -41,6 +67,22 @@ const placesData = {
       'Ver el espectáculo de luces en la Fuente de la Fantasía.',
       'Mojarte en la Fuente de los Niños (si te atreves).',
       'Caminar por el Túnel de las Sorpresas.',
+    ],
+    ratingsSummary: {
+      averageRating: 4.8,
+      totalRatings: 52100,
+      ratingBreakdown: [85, 10, 3, 1, 1],
+    },
+    comments: [
+      {
+        id: 1,
+        username: 'luzdelsur',
+        userAvatarUrl: null, // Probar el fallback
+        date: '10/09/2025',
+        text: '¡Mágico! Fui de noche y el espectáculo de luces es imperdible.',
+        likes: 22,
+        dislikes: 0
+      }
     ],
   }
   
