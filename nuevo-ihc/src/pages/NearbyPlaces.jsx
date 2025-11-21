@@ -32,32 +32,35 @@ export default function NearbyPlaces() {
         <MenuOverlay isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
 
         {/* Contenido Principal */}
-        <div className="p-6 overflow-y-auto flex-grow">
-        {/* Header */}
-        <div className="bg-white rounded-xl shadow-md p-6 mb-6">
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">Lugares cercanos</h2>
-          <p className="text-gray-600 text-sm flex items-center gap-2">
-            <span>🗺️</span>
-            <span>Descubre qué hay alrededor tuyo</span>
-          </p>
+        <div className="overflow-y-auto flex-grow">
+        {/* Card destacado de evento */}
+        <div className="p-4 bg-white border-b border-gray-200">
+          <div className="bg-gradient-to-br from-orange-50 to-yellow-50 rounded-xl overflow-hidden shadow-md border border-orange-200">
+            <div className="flex gap-3 p-3">
+              <img 
+                src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=150&h=150&fit=crop" 
+                alt="Fiestas Patrias" 
+                className="w-24 h-24 object-cover rounded-lg flex-shrink-0"
+                onError={(e) => {
+                  e.target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"%3E%3Crect fill="%23f97316" width="200" height="200"/%3E%3Ctext x="50%25" y="50%25" font-size="60" text-anchor="middle" dy=".3em" fill="white"%3E🎉%3C/text%3E%3C/svg%3E';
+                }}
+              />
+              <div className="flex-1 min-w-0">
+                <p className="text-xs font-bold text-orange-600 mb-1 uppercase tracking-wide">Evento</p>
+                <h3 className="text-sm font-bold text-gray-900 leading-tight mb-1">
+                  Vive la emoción de las Fiestas Patrias. Disfruta de los desfiles, ferias gastronómicas y actividades culturales que llenan de alegría las calles.
+                </h3>
+              </div>
+            </div>
+          </div>
         </div>
 
-        {/* Mapa Interactivo */}
-        <div className="bg-white rounded-xl shadow-md p-6 mb-6">
+        {/* Mapa Interactivo - Ocupa más espacio */}
+        <div className="px-4 pt-4">
           <InteractiveMap
             locations={locations}
             onMarkerClick={handleMarkerClick}
             selectedMarkerId={selectedMarker}
-          />
-        </div>
-
-        {/* Lista de Lugares */}
-        <div className="mb-6">
-          <h3 className="text-xl font-bold text-gray-900 mb-4 px-2">Ubicaciones disponibles</h3>
-          <LocationsList
-            locations={locations}
-            selectedId={selectedMarker}
-            onLocationClick={handleMarkerClick}
           />
         </div>
         </div>

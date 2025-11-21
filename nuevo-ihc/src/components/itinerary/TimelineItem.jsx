@@ -7,7 +7,7 @@ export default function TimelineItem({ time, location, type, onInfoClick }) {
   
   return (
     <div className="flex gap-4 pb-8 relative">
-      {/* Línea vertical */}
+      {/* Linea vertical */}
       {!isEnd && (
         <div className="absolute left-5 top-12 w-1 h-16 bg-gradient-to-b from-yellow-400 to-yellow-200" />
       )}
@@ -26,7 +26,7 @@ export default function TimelineItem({ time, location, type, onInfoClick }) {
         <p className="text-sm font-semibold text-gray-500 uppercase tracking-wide">{time}</p>
         <p className="text-lg font-bold text-gray-900 mt-1 mb-2">{location}</p>
         
-        {/* Botón de información */}
+        {/* Boton de información */}
         {onInfoClick && (
           <button
             onClick={onInfoClick}
