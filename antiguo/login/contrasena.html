@@ -12,16 +12,27 @@
 <body>
   <main class="login-container">
     <h1 class="login-title">Recuperar Contraseña</h1>
-    <form class="login-form" action="reset.html" method="POST">
+
+    <!-- Formulario modificado -->
+    <form class="login-form" onsubmit="return enviarEnlace(event)">
       <div class="field">
         <label for="email">Correo electrónico</label>
         <input id="email" name="email" type="email" placeholder="Ingresa tu correo" required />
       </div>
       <button type="submit" class="btn btn-primary">Enviar enlace</button>
     </form>
+
     <div class="options">
       <p><a href="login.html">← Volver al login</a></p>
     </div>
   </main>
+
+  <script>
+    function enviarEnlace(event) {
+      event.preventDefault(); 
+      alert("Enlace enviado correctamente");
+      window.location.href = "login.html"; 
+    }
+  </script>
 </body>
 </html>

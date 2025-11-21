@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Lugares recomendados</title>
+  <link rel="stylesheet" href="lugares.css">
+</head>
+<body>
+
+  <!-- Encabezado igual que en Detalle del itinerario -->
+  <header class="main-header">
+    <span class="menu-icon">&#9776;</span>
+    <h1>Lugares recomendados</h1>
+  </header>
+
+  <div class="content-area">
+    <div class="places-container">
+
+      <!-- Barra de búsqueda -->
+      <div class="search-bar">
+        <input type="text" placeholder="Buscar lugares..." />
+        <span class="search-icon">🔍</span>
+      </div>
+
+      <!-- Filtros tipo chips -->
+      <div class="filters-row">
+        <button class="filter-main">⋮</button>
+        <button class="filter-chip">Tipo</button>
+        <button class="filter-chip">Actividad</button>
+        <button class="filter-chip">Estilo</button>
+        <button class="filter-chip">Clima</button>
+      </div>
+
+      <!-- Título sección -->
+      <h2 class="places-title">Lugares para ti</h2>
+
+      <!-- Tarjeta 1 -->
+      <a href="detalle-itinerario.html" class="place-card">
+        <img src="../images/amanecer.jpg" alt="Lugar recomendado" class="place-image">
+        <div class="place-info">
+          <h3 class="place-name">Barranco cultural</h3>
+          <div class="place-meta">
+            <span>⏱ x min</span>
+            <span>📍 x km</span>
+            <span>⭐ 4.7</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Tarjeta 2 -->
+      <a href="detalle-itinerario.html" class="place-card">
+        <img src="../images/catedral.jpg" alt="Lugar recomendado" class="place-image">
+        <div class="place-info">
+          <h3 class="place-name">Centro histórico de Lima</h3>
+          <div class="place-meta">
+            <span>⏱ x min</span>
+            <span>📍 x km</span>
+            <span>⭐ 4.7</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Duplica más tarjetas si quieres -->
+
+    </div>
+  </div>
+
+</body>
+</html>
