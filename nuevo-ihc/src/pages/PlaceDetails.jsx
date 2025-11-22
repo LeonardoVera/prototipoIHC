@@ -12,7 +12,6 @@ import TabButton from "../components/TabButton";
 import Button from "../components/Button";
 import PageHeader from "../components/PageHeader";
 
-// Componentes de la pestaña "Información"
 import ImageCarousel from "../components/details/ImageCarousel";
 import SectionHeader from "../components/details/SectionHeader";
 import BodyText from "../components/details/BodyText";
@@ -23,45 +22,35 @@ import InfoBlock from "../components/details/InfoBlock";
 import InfoRow from "../components/details/InfoRow";
 import SecurityInfo from "../components/details/SecurityInfo";
 
-// Componentes de la pestaña "Comentarios"
 import CommentSection from "../components/comments/CommentSection";
 
-// Importaciones de Iconos
 import { IoLocationSharp, IoPricetag } from "react-icons/io5";
 import { CiClock2 } from "react-icons/ci";
 
-// --- Componentes de Iconos (Wrappers) ---
 const LocationIcon = () => (<IoLocationSharp />);
 const ClockIcon = () => (<CiClock2 />);
 const TicketIcon = () => (<IoPricetag />);
-// --- Fin Iconos ---
 
-export default function PlaceDetails() {
+export default function PlaceDetails({placeIdProp, onCloseModal}) {
   const [activeTab, setActiveTab] = useState('info');
-  const { id } = useParams();
+  const { id: paramId } = useParams();
+
+  const id = placeIdProp || paramId;
   
-  // Obtenemos la data "limpia" de la base de datos simulada
   const placeDataFromDB = getPlaceById(id);
 
-  // --- Lógica de Estado para Likes/Dislikes ---
-
-  //    Esto nos permite "guardar" los cambios (ej. +1 like).
   const [currentPlaceData, setCurrentPlaceData] = useState(placeDataFromDB);
 
-  // 2. Estado para recordar los votos del usuario (un voto por comentario)
   const [userVotes, setUserVotes] = useState({});
 
-  // 3. Efecto para resetear el estado si el ID de la URL cambia
   useEffect(() => {
     setCurrentPlaceData(getPlaceById(id));
     setUserVotes({}); // Resetea los votos al cambiar de lugar
   }, [id, getPlaceById]); // Añadimos getPlaceById a las dependencias
 
-  // 4. Función para manejar los votos
   const handleCommentVote = (commentId, voteType) => {
     const currentVote = userVotes[commentId];
 
-    // Copiamos los comentarios para no mutar el estado directamente
     let newComments = [...currentPlaceData.comments];
     const commentIndex = newComments.findIndex(c => c.id === commentId);
     let commentToUpdate = { ...newComments[commentIndex] };
@@ -112,8 +101,12 @@ export default function PlaceDetails() {
 
   const handleClose = () => {
     console.log("Cerrar/Volver");
-    // Aquí podrías usar: navigate(-1); si usas useNavigate
-  };
+    if (onCloseModal) {
+      onCloseModal(); // Si estoy en modal, cierro el modal
+    } else {
+      console.log("Volver (Navegación normal)");
+    }
+    };
 
   const handleShare = () => {
     console.log("Compartir");
@@ -131,8 +124,8 @@ export default function PlaceDetails() {
 
   // --- Renderizado del Componente ---
   return (
-    <div className="min-h-screen bg-gray-100 flex justify-center items-center p-4">
-      <div className="max-w-md w-full bg-white shadow-xl rounded-xl flex flex-col overflow-hidden">
+    <div className="h-full flex flex-col">
+      <div className="flex-grow flex flex-col">
         
         <PageHeader onShareClick={handleShare} onCloseClick={handleClose} />
         
