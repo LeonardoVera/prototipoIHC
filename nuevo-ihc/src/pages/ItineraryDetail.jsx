@@ -1,5 +1,3 @@
-// src/pages/ItineraryDetails.jsx
-
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
@@ -36,39 +34,39 @@ const DurationIcon = () => (<IoTimeOutline />);
 const PriceIcon = () => (<IoCashOutline />);
 const RouteIcon = () => (<IoMapOutline />);
 
-export default function ItineraryDetails() {
+// 1. CAMBIO: Recibimos 'itineraryIdProp' en lugar de 'placeIdProp' para ser claros
+export default function ItineraryDetails({ itineraryIdProp, onCloseModal }) {
   const [activeTab, setActiveTab] = useState('info');
-  const { id } = useParams();
+  const { id: paramId } = useParams();
 
-  // --- LÓGICA DE ESTADO (Igual que en PlaceDetails) ---
-  
-  // 1. Obtenemos la data inicial
-  const initialData = getItineraryById(id);
-  
-  // 2. Estado local para poder modificar likes/dislikes
-  const [currentItinerary, setCurrentItinerary] = useState(initialData);
-  
-  // 3. Estado de votos del usuario
+  // 2. CAMBIO: Determinamos el ID real
+  // Si itineraryIdProp existe (estamos en modal), lo usamos.
+  // Si no, usamos el de la URL (navegación normal).
+  const id = itineraryIdProp || paramId;
+
+  // Estado local para la data
+  // Inicializamos con null para evitar errores si el ID cambia rápido
+  const [currentItinerary, setCurrentItinerary] = useState(null);
   const [userVotes, setUserVotes] = useState({});
 
-  // 4. Efecto para cargar data si cambia el ID
+  // 3. CAMBIO: Cargar datos con useEffect
+  // Es más seguro cargar la data aquí que directamente en la inicialización
+  // para manejar cambios de ID correctamente.
   useEffect(() => {
-    setCurrentItinerary(getItineraryById(id));
+    const data = getItineraryById(id);
+    setCurrentItinerary(data);
     setUserVotes({});
   }, [id]);
 
-  // 5. Manejador de Votos (Adaptado para itinerary)
+  // Manejador de Votos
   const handleCommentVote = (commentId, voteType) => {
+    // ... (Esta lógica es idéntica, no cambia nada) ...
     const currentVote = userVotes[commentId];
-    
-    // Copia profunda de los comentarios
     let newComments = [...currentItinerary.comments];
     const commentIndex = newComments.findIndex(c => c.id === commentId);
     let commentToUpdate = { ...newComments[commentIndex] };
-
     let newVoteStatus = 'none';
 
-    // Lógica de Like/Dislike (Idéntica a PlaceDetails)
     if (voteType === 'like') {
       if (currentVote === 'liked') {
         commentToUpdate.likes -= 1;
@@ -96,41 +94,48 @@ export default function ItineraryDetails() {
     }
 
     newComments[commentIndex] = commentToUpdate;
-
     setUserVotes(prevVotes => ({
       ...prevVotes,
       [commentId]: newVoteStatus === 'none' ? undefined : newVoteStatus
     }));
-
     setCurrentItinerary(prevData => ({
       ...prevData,
       comments: newComments
     }));
   };
-  // --- FIN LÓGICA DE ESTADO ---
 
-  const handleClose = () => console.log("Volver");
+  const handleClose = () => {
+    console.log("Cerrar/Volver");
+    if (onCloseModal) {
+      onCloseModal();
+    } else {
+      console.log("Volver (Navegación normal)");
+    }
+  };
+
   const handleShare = () => console.log("Compartir");
 
   if (!currentItinerary) {
     return <div className="min-h-screen flex justify-center items-center">Itinerario no encontrado.</div>;
   }
 
+  // 4. CAMBIO: Renderizado Condicional del Contenedor
+  // Si es modal (hay prop), usamos h-full.
+  // Si es página normal, usamos el estilo de tarjeta gris.
+  const isModal = !!itineraryIdProp;
+
   return (
-    <div className="min-h-screen bg-gray-100 flex justify-center items-center p-4">
-      <div className="max-w-md w-full bg-white shadow-xl rounded-xl flex flex-col overflow-hidden min-h-[80vh]">
+    <div className={isModal ? "h-full flex flex-col overflow-hidden" : "min-h-screen bg-gray-100 flex justify-center items-center p-4"}>
+      <div className={isModal ? "flex-grow flex flex-col overflow-hidden" : "max-w-md w-full bg-white shadow-xl rounded-xl flex flex-col overflow-hidden min-h-[80vh]"}>
         
         <PageHeader onShareClick={handleShare} onCloseClick={handleClose} />
         
         <main className="p-6 pt-0 flex-grow overflow-y-auto">
           
-          {/* --- PESTAÑA: INFORMACIÓN --- */}
           {activeTab === 'info' && (
-            <div className="animate-fadeIn"> {/* Un fade-in simple si tienes configurado tailwind animations, si no, quítalo */}
-              
+            <div className="animate-fadeIn">
               <PlaceTitle>{currentItinerary.name}</PlaceTitle>
 
-              {/* Info Rápida */}
               <InfoBlock>
                 <InfoRow icon={<PhotoIcon />}>
                   {currentItinerary.quickInfo.photosLabel}
@@ -148,8 +153,7 @@ export default function ItineraryDetails() {
               </p>
 
               <div className="my-6 flex justify-center">
-                <Button onClick={() => console.log("Iniciar!")}
-                  className="w-full">
+                <Button onClick={() => console.log("Iniciar!")} className="w-full">
                   Iniciar Itinerario
                 </Button>
               </div>
@@ -161,13 +165,11 @@ export default function ItineraryDetails() {
                 </BodyText>
               </div>
 
-              {/* Carrusel de Lugares */}
               <div className="mb-8">
                  <SectionHeader>Lugares a visitar</SectionHeader>
                  <ImageCarousel images={currentItinerary.images} />
               </div>
 
-              {/* Linea de Tiempo de Actividades */}
               <div className="mb-8">
                 <SectionHeader>Actividades</SectionHeader>
                 <ActivityTimeline activities={currentItinerary.activities} />
@@ -186,7 +188,6 @@ export default function ItineraryDetails() {
             </div>
           )}
 
-          {/* --- PESTAÑA: COMENTARIOS --- */}
           {activeTab === 'comments' && (
             <CommentSection 
               ratings={currentItinerary.ratingsSummary}
@@ -198,8 +199,7 @@ export default function ItineraryDetails() {
 
         </main>
 
-        {/* --- BARRA DE NAVEGACIÓN INFERIOR --- */}
-        <div className="border-t border-gray-200 sticky bottom-0 bg-white">
+        <div className="border-t border-gray-200 bg-white flex-shrink-0">
           <TabNavigator>
             <TabButton
               isActive={activeTab === 'info'}

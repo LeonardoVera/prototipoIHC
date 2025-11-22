@@ -1,12 +1,8 @@
-// Importaciones de React y React Router
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-// Importación de la "Base de Datos"
 import { getPlaceById } from "../data/MockDataBase";
 
-// --- Importaciones de Componentes UI ---
-// (Rutas basadas en tu último código)
 import TabNavigator from "../components/TabNavigator";
 import TabButton from "../components/TabButton";
 import Button from "../components/Button";
@@ -125,7 +121,7 @@ export default function PlaceDetails({placeIdProp, onCloseModal}) {
   // --- Renderizado del Componente ---
   return (
     <div className="h-full flex flex-col overflow-hidden">
-      <div className="flex-grow flex flex-col overflow-hidden">
+      <div className="h-full flex flex-col overflow-hidden">
         
         <PageHeader onShareClick={handleShare} onCloseClick={handleClose} />
         
