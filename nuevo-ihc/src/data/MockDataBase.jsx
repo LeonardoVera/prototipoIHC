@@ -3,6 +3,10 @@
 import imgHuacaMain from "../assets/Huaca-pucllana-piramide-principal.jpg";
 import imgHuacaCerca from "../assets/huaca-pucllana-cerca.jpg";
 import imgRestaurante from "../assets/Restaurante-Huaca pucllana.avif";
+import centroHistorico from "../assets/centro-historico.jpg";
+import barrancoAtardecer from "../assets/barranco-atardecer.jpg";
+import cevicheriaMar from "../assets/cevicheria-mar.jpg";
+import museoPisco from "../assets/museo-del-pisco-aqp.jpg";
 
 const placesData = {
   
@@ -87,6 +91,75 @@ const placesData = {
   }
   
   // ... puedes añadir más lugares aquí
+};
+
+// src/data/MockDataBase.js
+
+// ... (tu objeto placesData existente) ...
+
+// --- NUEVA DATA: ITINERARIOS ---
+const itinerariesData = {
+  'tour-relax': {
+    name: 'Tour relax',
+    // Info rápida
+    quickInfo: {
+      photosLabel: 'Fotos, paisaje',
+      duration: '8h',
+      price: 'S/.60 por persona'
+    },
+    description: 'Un recorrido pensado para quienes quieren disfrutar lo mejor de Lima en un solo día. Inicia con la frescura de Huaca Pucllana y sigue con una experiencia única en el Museo del Pisco...',
+    // La línea de tiempo de actividades
+    activities: [
+      { time: '09:00', placeName: 'Huaca Pucllana', placeId: 'huaca-pucllana' },
+      { time: '11:00', placeName: 'Museo del Pisco', placeId: 'museo-pisco' }, // (Asumiendo que este ID existirá)
+      { time: '14:00', placeName: 'Cevichería La Mar', placeId: 'cevicheria-lamar' },
+      { time: '16:00', placeName: 'Centro Histórico', placeId: 'centro-historico' },
+      { time: '19:00', placeName: 'Barranco', placeId: 'barranco' },
+    ],
+    securityLevel: 'safe',
+    // ¡IMPORTANTE! Imágenes de los lugares del itinerario para el carrusel
+    images: [
+      { id: 1, url: imgHuacaMain, description: 'Parada 1: Huaca Pucllana' },
+      { id: 2, url: museoPisco, description: 'Parada 2: Museo del pisco' },
+      { id: 3, url: cevicheriaMar, description: 'Parada 3: Cevicheria la mar' },
+      { id: 4, url: centroHistorico, description: 'Parada 4: Centro Histórico' },
+      { id: 5, url: barrancoAtardecer, description: 'Parada 5: Barranco al atardecer' }
+    ],
+
+    ratingsSummary: {
+      averageRating: 4.9,
+      totalRatings: 120,
+      ratingBreakdown: [90, 20, 5, 3, 2],
+    },
+    comments: [
+      {
+        id: 1,
+        username: 'mochilerolima',
+        userAvatarUrl: 'https://placehold.co/100x100/34d399/ffffff?text=M',
+        date: '20/09/2025',
+        text: '¡La mejor forma de conocer Lima en un día! La parada en Barranco fue mágica.',
+        likes: 45,
+        dislikes: 1
+      },
+      {
+        id: 2,
+        username: 'anamaria88',
+        userAvatarUrl: 'https://placehold.co/100x100/f472b6/ffffff?text=A',
+        date: '18/09/2025',
+        text: 'Muy completo, aunque hubiera preferido estar más tiempo en el Museo del Pisco.',
+        likes: 12,
+        dislikes: 0
+      }
+    ]
+  }
+  // ... puedes agregar más itinerarios
+};
+
+// ... (tu función getPlaceById existente) ...
+
+// --- NUEVA FUNCIÓN ---
+export const getItineraryById = (id) => {
+  return itinerariesData[id] || null;
 };
 
 // --- Función de API Simulada ---

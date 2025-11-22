@@ -2,6 +2,7 @@ import React from 'react';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
 
 import PlaceDetails from './pages/PlaceDetails';
+import ItineraryDetails from './pages/ItineraryDetail';
 
 function App() {
   return (
@@ -10,9 +11,8 @@ function App() {
       initialEntries={["/lugar/huaca-pucllana"]}
     >
       <Routes>
-        {/* 4. Definimos la misma ruta que usará tu componente
-            para que useParams() pueda capturar el ':id' */}
         <Route path="/lugar/:id" element={<PlaceDetails />} />
+        <Route path="/itinerario/:id" element={<ItineraryDetails />} />
       </Routes>
     </MemoryRouter>
   );
