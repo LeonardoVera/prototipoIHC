@@ -10,11 +10,15 @@ import { FaRoute, FaChevronRight } from "react-icons/fa";
 import BottomSheet from '../components/BottomSheet';
 import PlaceDetails from './PlaceDetails';
 import ItineraryDetails from './ItineraryDetail'; // Asumo que harás lo mismo con este
+import TopBar from '../components/TopBar';
+import MenuOverlay from '../components/MenuOverlay';
 
 export default function RecommendedPlaces() {
   const places = getAllPlaces();
   const itineraries = getAllItineraries();
 
+  const [menuOpen, setMenuOpen] = useState(false);
+  
   // 2. ESTADOS PARA CONTROLAR LOS MODALES
   // Si es null = cerrado. Si tiene un ID = abierto mostrando ese ID.
   const [selectedPlaceId, setSelectedPlaceId] = useState(null);
@@ -25,10 +29,13 @@ export default function RecommendedPlaces() {
         
         <div className="max-w-md w-full bg-white shadow-xl rounded-xl overflow-hidden min-h-[80vh] flex flex-col relative">
             
-            <div className="bg-teal-700 p-5 text-white">
-                <h1 className="text-xl font-bold">Explorar Lima</h1>
-                <p className="text-teal-100 text-sm">Selecciona una opción</p>
-            </div>
+            <TopBar
+            onMenuToggle={() => setMenuOpen(!menuOpen)}
+            title="Lugares Recomendados"
+            />
+
+            {/* Menu Overlay */}
+            <MenuOverlay isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
             
             <div className="p-6 overflow-y-auto flex-grow">
                 
