@@ -124,13 +124,13 @@ export default function PlaceDetails({placeIdProp, onCloseModal}) {
 
   // --- Renderizado del Componente ---
   return (
-    <div className="h-full flex flex-col">
-      <div className="flex-grow flex flex-col">
+    <div className="h-full flex flex-col overflow-hidden">
+      <div className="flex-grow flex flex-col overflow-hidden">
         
         <PageHeader onShareClick={handleShare} onCloseClick={handleClose} />
         
         {/* Contenido principal (cambia según la pestaña) */}
-        <main className="p-6 pt-0 flex-grow">
+        <main className="p-6 pt-0 flex-grow overflow-y-auto">
           
           {/* --- Pestaña de INFORMACIÓN --- */}
           {activeTab === 'info' && (
