@@ -318,3 +318,20 @@ export const getPlaceById = (id) => {
   // o 'null' si no lo encuentra.
   return placesData[id] || null;
 };
+
+export const getAllPlaces = () => {
+  // Object.entries convierte el objeto en un array de [key, value]
+  // Luego lo mapeamos para incluir el ID dentro del objeto
+  return Object.entries(placesData).map(([key, data]) => ({
+    id: key,
+    ...data
+  }));
+};
+
+// Devuelve todos los itinerarios en un array
+export const getAllItineraries = () => {
+  return Object.entries(itinerariesData).map(([key, data]) => ({
+    id: key,
+    ...data
+  }));
+};
