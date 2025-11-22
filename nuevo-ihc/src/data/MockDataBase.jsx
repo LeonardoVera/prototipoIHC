@@ -7,6 +7,8 @@ import centroHistorico from "../assets/centro-historico.jpg";
 import barrancoAtardecer from "../assets/barranco-atardecer.jpg";
 import cevicheriaMar from "../assets/cevicheria-mar.jpg";
 import museoPisco from "../assets/museo-del-pisco-aqp.jpg";
+import catacumbas from "../assets/catacumbas.jpg";
+import barrancosalida from "../assets/barranco-salida.jpg";
 
 const placesData = {
   
@@ -88,7 +90,154 @@ const placesData = {
         dislikes: 0
       }
     ],
-  }
+  },
+
+  'museo-pisco': {
+    name: 'Museo del Pisco',
+    location: 'Jirón Carabaya, Centro Histórico de Lima',
+    schedule: 'Abierto: 11:00 AM - 1:00 AM',
+    price: 'Consumo promedio: S/ 45.00',
+    security: { level: 'safe' },
+    images: [
+      { id: 1, url: museoPisco, description: 'Barra principal y cata' },
+      { id: 2, url: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b', description: 'Barra principal y cata' },
+      { id: 3, url: 'https://images.unsplash.com/photo-1556679343-c7306c1976bc', description: 'Variedad de chilcanos' },
+    ],
+    description: 'Más que un bar, es una experiencia cultural dedicada a nuestra bebida bandera. Ofrece catas, clases de coctelería y una carta impresionante de piscos de todas las regiones.',
+    whatToDo: [
+      'Tomar una clase de preparación de Pisco Sour.',
+      'Realizar una cata guiada de diferentes cepas.',
+      'Disfrutar de tapas peruanas con música en vivo.',
+    ],
+    ratingsSummary: {
+      averageRating: 4.7,
+      totalRatings: 8540,
+      ratingBreakdown: [80, 15, 4, 1, 0],
+    },
+    comments: [
+      {
+        id: 1,
+        username: 'pisco_lover',
+        userAvatarUrl: null,
+        date: '05/09/2025',
+        text: 'El ambiente es increíble. Aprendí muchísimo sobre la diferencia entre el pisco Quebranta y el Italia. ¡Recomendado!',
+        likes: 34,
+        dislikes: 0
+      }
+    ],
+  },
+
+  'cevicheria-lamar': {
+    name: 'Cevicheria La Mar',
+    location: 'Av. La Mar 770, Miraflores',
+    schedule: 'Abierto: 12:00 PM - 5:00 PM',
+    price: 'Platos desde: S/ 65.00',
+    security: { level: 'safe' },
+    images: [
+      { id: 1, url: cevicheriaMar, description: 'Ceviche clásico' },
+      { id: 2, url: 'https://images.unsplash.com/photo-1535399831218-d5bd36d1a6b3', description: 'Ceviche clásico' }
+    ],
+    description: 'La aclamada propuesta de Gastón Acurio. Un templo a la pesca del día donde se celebra la frescura del mar peruano en un ambiente relajado pero de alta cocina.',
+    whatToDo: [
+      'Probar la pesca del día en diferentes preparaciones.',
+      'Pedir el clásico ceviche carretillero.',
+      'Disfrutar de sus cócteles de autor.',
+    ],
+    ratingsSummary: {
+      averageRating: 4.6,
+      totalRatings: 15200,
+      ratingBreakdown: [70, 20, 5, 3, 2],
+    },
+    comments: [
+      {
+        id: 1,
+        username: 'foodie_lima',
+        userAvatarUrl: 'https://placehold.co/100x100/fbbf24/ffffff?text=F',
+        date: '12/09/2025',
+        text: 'Es caro, pero vale cada centavo. El pescado se siente fresquísimo. Hay que ir temprano porque se llena rápido.',
+        likes: 56,
+        dislikes: 2
+      }
+    ],
+  },
+
+  'centro-historico': {
+    name: 'Centro Histórico de Lima',
+    location: 'Lima Cercado',
+    schedule: 'Abierto: 24 horas',
+    price: 'Gratis (Museos costo aparte)',
+    security: { level: 'warning' },
+    images: [
+      { id: 1, url: centroHistorico, description: 'Plaza de Armas' },
+      { id: 2, url: catacumbas, description: 'Balcones coloniales' },
+      { id: 3, url: 'https://images.unsplash.com/photo-1531968455001-5c5272a41129', description: 'Plaza de Armas' },
+    ],
+    description: 'El corazón de la ciudad de los reyes. Declarado Patrimonio de la Humanidad, alberga la Plaza Mayor, la Catedral y hermosos balcones coloniales que narran la historia del virreinato.',
+    whatToDo: [
+      'Ver el cambio de guardia en Palacio de Gobierno (mediodía).',
+      'Visitar las Catacumbas de San Francisco.',
+      'Admirar la arquitectura de la Catedral de Lima.',
+    ],
+    ratingsSummary: {
+      averageRating: 4.5,
+      totalRatings: 45000,
+      ratingBreakdown: [60, 25, 10, 3, 2],
+    },
+    comments: [
+      {
+        id: 1,
+        username: 'caminante_urbano',
+        userAvatarUrl: null,
+        date: '01/09/2025',
+        text: 'Mucha historia en cada esquina. Recomiendo ir con guía para entender bien la arquitectura. Ojo con el celular en las calles aledañas.',
+        likes: 89,
+        dislikes: 1
+      }
+    ],
+  },
+  'barranco': {
+    name: 'Distrito de Barranco',
+    location: 'Barranco, Lima',
+    schedule: 'Abierto: 24 horas (Zona turística)',
+    price: 'Gratis (Locales costo aparte)',
+    security: { level: 'safe' },
+    images: [
+      { id: 1, url: barrancosalida, description: 'Bajada de Baños y murales' },
+      { id: 2, url: barrancoAtardecer, description: 'Puente de los Suspiros' },
+    ],
+    description: 'El barrio bohemio de Lima por excelencia. Lleno de arte callejero, casonas antiguas republicanas, museos y una vibrante vida nocturna. Es el lugar perfecto para ver el atardecer frente al mar.',
+    whatToDo: [
+      'Cruzar el Puente de los Suspiros pidiendo un deseo.',
+      'Caminar por la Bajada de Baños hasta la playa.',
+      'Visitar el Museo MATE o el Museo de la Electricidad.',
+      'Disfrutar de la vida nocturna en sus bares y peñas.',
+    ],
+    ratingsSummary: {
+      averageRating: 4.8,
+      totalRatings: 28900,
+      ratingBreakdown: [85, 10, 3, 1, 1],
+    },
+    comments: [
+      {
+        id: 1,
+        username: 'art_lover',
+        userAvatarUrl: 'https://placehold.co/100x100/8b5cf6/ffffff?text=A',
+        date: '25/09/2025',
+        text: 'Los murales son impresionantes. Es el lugar más "instagrammable" de Lima. Recomiendo ir al atardecer para las mejores fotos.',
+        likes: 120,
+        dislikes: 3
+      },
+      {
+        id: 2,
+        username: 'party_guy',
+        userAvatarUrl: null,
+        date: '22/09/2025',
+        text: 'Excelente ambiente nocturno. Ayahuasca Bar es una parada obligatoria si te gusta la arquitectura y los buenos tragos.',
+        likes: 45,
+        dislikes: 1
+      }
+    ],
+  },
   
   // ... puedes añadir más lugares aquí
 };

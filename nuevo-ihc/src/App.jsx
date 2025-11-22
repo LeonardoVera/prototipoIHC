@@ -8,7 +8,7 @@ function App() {
   return (
     <MemoryRouter 
       // Le decimos qué "URL de mentira" debe simular.
-      initialEntries={["/lugar/huaca-pucllana"]}
+      initialEntries={["/itinerario/tour-relax"]}
     >
       <Routes>
         <Route path="/lugar/:id" element={<PlaceDetails />} />
