@@ -6,6 +6,10 @@ import ItineraryDetails from './pages/ItineraryDetail';
 import CurrentItinerary from './pages/CurrentItinerary';
 import NearbyPlaces from './pages/NearbyPlaces';
 import RecommendedPlaces from './pages/RecommendedPlaces';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Recovery from './pages/Recovery';
+import Preferences from './pages/Preferences';
 
 function App() {
   return (
@@ -14,6 +18,12 @@ function App() {
       initialEntries={["/"]}
     >
       <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/home" element={<RecommendedPlaces />} />
+        <Route path="/registro" element={<Register />} />
+        <Route path="/recuperar" element={<Recovery />} />
+        <Route path="/preferencias" element={<Preferences />} />
+
         <Route path="/itinerario/:id" element={<ItineraryDetails />} />
         {/* Ruta para los detalles de un lugar específico */}
         <Route path="/lugar/:id" element={<PlaceDetails />} />
@@ -23,8 +33,6 @@ function App() {
         
         {/* Ruta para lugares cercanos */}
         <Route path="/lugares-cercanos" element={<NearbyPlaces />} />
-
-        <Route path="/" element={<RecommendedPlaces />} />
       </Routes>
     </MemoryRouter>
   );

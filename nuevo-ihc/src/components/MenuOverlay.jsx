@@ -57,7 +57,7 @@ export default function MenuOverlay({ isOpen, onClose }) {
           <MenuLink 
             icon="🏠" 
             label="Pantalla principal" 
-            onClick={() => handleNavigation('/')}
+            onClick={() => handleNavigation('/home')}
           />
           <MenuLink 
             icon="📋" 
@@ -88,7 +88,13 @@ export default function MenuOverlay({ isOpen, onClose }) {
 
         {/* Footer */}
         <div className="absolute bottom-0 w-full p-4 border-t">
-          <button className="w-full bg-red-500 text-white py-2 rounded-lg font-semibold hover:bg-red-600 transition-colors">
+          <button 
+             onClick={() => {
+               navigate('/');
+               onClose();
+             }}
+             className="w-full bg-red-500 text-white py-2 rounded-lg font-semibold hover:bg-red-600 transition-colors"
+          >
             Cerrar sesión
           </button>
         </div>

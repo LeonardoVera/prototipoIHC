@@ -2,27 +2,24 @@ import React, { useState } from 'react';
 // Quitamos Link porque ahora usaremos modales, no navegación
 // import { Link } from 'react-router-dom'; 
 
-import { getAllPlaces, getAllItineraries } from '../data/MockDataBase';
-import { IoLocationSharp } from "react-icons/io5";
-import { FaRoute, FaChevronRight } from "react-icons/fa";
+import { getAllPlaces } from '../data/MockDataBase';
+import { IoLocationSharp, IoTimeOutline } from "react-icons/io5";
+import { FaStar } from "react-icons/fa";
 
 // 1. IMPORTAMOS LOS COMPONENTES QUE CREASTE
 import BottomSheet from '../components/BottomSheet';
 import PlaceDetails from './PlaceDetails';
-import ItineraryDetails from './ItineraryDetail'; // Asumo que harás lo mismo con este
 import TopBar from '../components/TopBar';
 import MenuOverlay from '../components/MenuOverlay';
 
 export default function RecommendedPlaces() {
   const places = getAllPlaces();
-  const itineraries = getAllItineraries();
 
   const [menuOpen, setMenuOpen] = useState(false);
   
   // 2. ESTADOS PARA CONTROLAR LOS MODALES
   // Si es null = cerrado. Si tiene un ID = abierto mostrando ese ID.
   const [selectedPlaceId, setSelectedPlaceId] = useState(null);
-  const [selectedItineraryId, setSelectedItineraryId] = useState(null);
 
   return (
     <div className="min-h-screen bg-gray-100 flex justify-center p-4">
@@ -37,62 +34,51 @@ export default function RecommendedPlaces() {
             {/* Menu Overlay */}
             <MenuOverlay isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
             
-            <div className="p-6 overflow-y-auto flex-grow">
+            <div className="p-6 overflow-y-auto flex-grow bg-gray-50">
                 
                 {/* --- SECCIÓN: LUGARES --- */}
-                <h2 className="text-lg font-bold mb-4 text-gray-800 flex items-center gap-2">
-                    <IoLocationSharp className="text-yellow-500"/> Lugares Recomendados
+                <h2 className="text-xl font-bold mb-6 text-gray-800">
+                    Lugares para ti
                 </h2>
                 
-                <div className="space-y-3 mb-8">
+                <div className="space-y-6 mb-8">
                     {places.map(place => (
-                        // 3. CAMBIO CLAVE: Usamos div + onClick
+                        // TARJETA ESTILO GRANDE
                         <div 
                             key={place.id} 
-                            onClick={() => setSelectedPlaceId(place.id)} // <--- Al hacer clic, guardamos el ID
-                            className="cursor-pointer block group"
+                            onClick={() => setSelectedPlaceId(place.id)}
+                            className="cursor-pointer block group bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-all"
                         >
-                            <div className="flex items-center p-4 border border-gray-200 rounded-xl hover:border-yellow-400 hover:shadow-md transition-all bg-white">
-                                <div className="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center text-yellow-600 mr-4 flex-shrink-0">
-                                    <IoLocationSharp size={20} />
-                                </div>
-                                <div className="flex-grow">
-                                    <h3 className="font-bold text-gray-900 group-hover:text-yellow-600 transition-colors">
-                                        {place.name}
-                                    </h3>
-                                    <p className="text-xs text-gray-500 line-clamp-1">{place.location}</p>
-                                </div>
-                                <FaChevronRight className="text-gray-300 group-hover:text-yellow-500" />
+                            {/* IMAGEN GRANDE */}
+                            <div className="w-full h-48 relative">
+                                <img 
+                                    src={place.images[0]?.url} 
+                                    alt={place.name} 
+                                    className="w-full h-full object-cover"
+                                />
                             </div>
-                        </div>
-                    ))}
-                </div>
+                            
+                            {/* CONTENIDO DEBAJO */}
+                            <div className="p-4">
+                                <h3 className="font-bold text-lg text-gray-900 mb-2">
+                                    {place.name}
+                                </h3>
+                                
+                                <div className="flex items-center justify-between text-sm text-gray-600">
+                                    {/* Info de tiempo/distancia (Dummy data por ahora) */}
+                                    <div className="flex items-center gap-1">
+                                        <IoTimeOutline size={16} />
+                                        <span>15 min</span>
+                                        <span className="mx-1">•</span>
+                                        <span>2.5 km</span>
+                                    </div>
 
-                {/* --- SECCIÓN: ITINERARIOS --- */}
-                <h2 className="text-lg font-bold mb-4 text-gray-800 flex items-center gap-2">
-                    <FaRoute className="text-teal-600"/> Itinerarios
-                </h2>
-                
-                <div className="space-y-3">
-                     {itineraries.map(itinerary => (
-                        <div 
-                            key={itinerary.id} 
-                            onClick={() => setSelectedItineraryId(itinerary.id)} // <--- Al hacer clic, guardamos el ID
-                            className="cursor-pointer block group"
-                        >
-                            <div className="flex items-center p-4 border border-gray-200 rounded-xl hover:border-teal-500 hover:shadow-md transition-all bg-white">
-                                <div className="w-10 h-10 bg-teal-50 rounded-full flex items-center justify-center text-teal-600 mr-4 flex-shrink-0">
-                                    <FaRoute size={18} />
+                                    {/* Rating */}
+                                    <div className="flex items-center gap-1 font-semibold text-gray-800">
+                                        <FaStar className="text-black" size={14} />
+                                        <span>{place.ratingsSummary?.averageRating || 4.5}</span>
+                                    </div>
                                 </div>
-                                <div className="flex-grow">
-                                    <h3 className="font-bold text-gray-900 group-hover:text-teal-600 transition-colors">
-                                        {itinerary.name}
-                                    </h3>
-                                    <p className="text-xs text-gray-500">
-                                        {itinerary.quickInfo?.duration} • {itinerary.quickInfo?.price}
-                                    </p>
-                                </div>
-                                <FaChevronRight className="text-gray-300 group-hover:text-teal-500" />
                             </div>
                         </div>
                     ))}
@@ -114,21 +100,6 @@ export default function RecommendedPlaces() {
                 <PlaceDetails 
                     placeIdProp={selectedPlaceId} 
                     onCloseModal={() => setSelectedPlaceId(null)} 
-                />
-            )}
-        </BottomSheet>
-
-        {/* Modal para Itinerarios */}
-        <BottomSheet 
-            isOpen={!!selectedItineraryId} 
-            onClose={() => setSelectedItineraryId(null)}
-        >
-            {selectedItineraryId && (
-                <ItineraryDetails 
-                    // NOTA: Asegúrate de hacer en ItineraryDetails lo mismo que hiciste en PlaceDetails
-                    // (recibir itineraryIdProp y onCloseModal)
-                    itineraryIdProp={selectedItineraryId} 
-                    onCloseModal={() => setSelectedItineraryId(null)} 
                 />
             )}
         </BottomSheet>

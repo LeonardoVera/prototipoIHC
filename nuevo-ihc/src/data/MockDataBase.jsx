@@ -1,14 +1,14 @@
 // --- Base de Datos Simulada ---
 // Usamos un objeto donde la 'key' es el ID
-import imgHuacaMain from "../assets/Huaca-pucllana-piramide-principal.jpg";
-import imgHuacaCerca from "../assets/huaca-pucllana-cerca.jpg";
-import imgRestaurante from "../assets/Restaurante-Huaca pucllana.avif";
-import centroHistorico from "../assets/centro-historico.jpg";
-import barrancoAtardecer from "../assets/barranco-atardecer.jpg";
-import cevicheriaMar from "../assets/cevicheria-mar.jpg";
-import museoPisco from "../assets/museo-del-pisco-aqp.jpg";
-import catacumbas from "../assets/catacumbas.jpg";
-import barrancosalida from "../assets/barranco-salida.jpg";
+const imgHuacaMain = "/images/amanecer.jpg"; // Placeholder o imagen real si existe
+const imgHuacaCerca = "/images/catedral.jpg"; // Placeholder
+const imgRestaurante = "/images/barranco-lima.jpg"; // Placeholder
+const centroHistorico = "/images/catedral.jpg";
+const barrancoAtardecer = "/images/barranco-lima.jpg";
+const cevicheriaMar = "/images/la-punta.jpg";
+const museoPisco = "/images/parque-kennedy.jpg";
+const catacumbas = "/images/catedral.jpg";
+const barrancosalida = "/images/barranco-lima.jpg";
 
 const placesData = {
   
