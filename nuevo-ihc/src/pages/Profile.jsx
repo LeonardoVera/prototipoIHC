@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import TopBar from '../components/TopBar';
 import MenuOverlay from '../components/MenuOverlay';
 import { IoPencil, IoCheckmark, IoClose } from 'react-icons/io5';
+import { useUser } from '../context/UserContext';
 import '../pages/Profile.css';
 
 function FieldRow({ label, fieldKey, type = 'text', editingField, startEdit, draftValue, setDraftValue, saveEdit, cancelEdit, userData }) {
@@ -47,10 +49,12 @@ function FieldRow({ label, fieldKey, type = 'text', editingField, startEdit, dra
 }
 
 export default function Profile() {
+  const navigate = useNavigate();
+  const { user, updateProfile, isAuthenticated } = useUser();
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // Datos de ejemplo (reemplazar por datos reales cuando estén disponibles)
-  const initialUser = {
+  // Si no hay usuario autenticado, usar datos por defecto
+  const defaultUser = {
     username: 'UsuarioEjemplo',
     fullName: 'Nombre Completo',
     birthDate: '10 / 09 / 1999',
@@ -58,13 +62,15 @@ export default function Profile() {
     avatarUrl: 'https://placehold.co/160x160/10b981/ffffff?text=U'
   };
 
-  const [userData, setUserData] = useState(initialUser);
-  const [editingField, setEditingField] = useState(null); // 'username' | 'fullName' | 'birthDate' | 'country' | null
+  // Usar datos del usuario autenticado o los valores por defecto
+  const currentUser = user || defaultUser;
+
+  const [editingField, setEditingField] = useState(null);
   const [draftValue, setDraftValue] = useState('');
 
   const startEdit = (field) => {
     setEditingField(field);
-    setDraftValue(userData[field] || '');
+    setDraftValue(currentUser[field] || '');
   };
 
   const cancelEdit = () => {
@@ -73,7 +79,10 @@ export default function Profile() {
   };
 
   const saveEdit = () => {
-    setUserData(prev => ({ ...prev, [editingField]: draftValue }));
+    if (isAuthenticated) {
+      // Si está autenticado, actualizar en el contexto y localStorage
+      updateProfile({ [editingField]: draftValue });
+    }
     setEditingField(null);
     setDraftValue('');
   };
@@ -93,7 +102,7 @@ export default function Profile() {
         <div className="p-6 overflow-y-auto flex-grow bg-gray-50">
           <div className="flex flex-col items-center mb-8">
             <div className="avatar-wrap">
-              <img src={userData.avatarUrl} alt="avatar" className="avatar-img" />
+              <img src={currentUser.avatarUrl} alt="avatar" className="avatar-img" />
             </div>
           </div>
 
@@ -107,7 +116,7 @@ export default function Profile() {
               setDraftValue={setDraftValue}
               saveEdit={saveEdit}
               cancelEdit={cancelEdit}
-              userData={userData}
+              userData={currentUser}
             />
 
             <FieldRow
@@ -119,7 +128,7 @@ export default function Profile() {
               setDraftValue={setDraftValue}
               saveEdit={saveEdit}
               cancelEdit={cancelEdit}
-              userData={userData}
+              userData={currentUser}
             />
 
             <FieldRow
@@ -131,7 +140,7 @@ export default function Profile() {
               setDraftValue={setDraftValue}
               saveEdit={saveEdit}
               cancelEdit={cancelEdit}
-              userData={userData}
+              userData={currentUser}
             />
 
             <FieldRow
@@ -143,7 +152,7 @@ export default function Profile() {
               setDraftValue={setDraftValue}
               saveEdit={saveEdit}
               cancelEdit={cancelEdit}
-              userData={userData}
+              userData={currentUser}
             />
           </div>
         </div>
