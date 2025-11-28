@@ -24,7 +24,7 @@ export default function RecommendedPlaces() {
   return (
     <div className="min-h-screen bg-gray-100 flex justify-center p-4">
         
-        <div className="max-w-md w-full bg-white shadow-xl rounded-xl overflow-hidden min-h-[80vh] flex flex-col relative">
+        <div className="max-w-md w-full bg-white shadow-xl rounded-xl overflow-hidden h-[90vh] flex flex-col relative">
             
             <TopBar
             onMenuToggle={() => setMenuOpen(!menuOpen)}

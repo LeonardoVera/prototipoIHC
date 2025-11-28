@@ -10,6 +10,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Recovery from './pages/Recovery';
 import Preferences from './pages/Preferences';
+import Profile from './pages/Profile';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/home" element={<RecommendedPlaces />} />
+        <Route path="/perfil" element={<Profile />} />
         <Route path="/registro" element={<Register />} />
         <Route path="/recuperar" element={<Recovery />} />
         <Route path="/preferencias" element={<Preferences />} />

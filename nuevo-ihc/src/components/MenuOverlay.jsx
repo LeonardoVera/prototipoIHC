@@ -1,14 +1,24 @@
 import React from 'react';
 import { IoClose } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
+import iconHome from '../assets/icono-PantallaPrincipal.png';
+import iconItinerarios from '../assets/icono-VerItinerarios.png';
+import iconItinerarioActual from '../assets/icono-VerItinerarioActual.png';
+import iconLugaresCercanos from '../assets/Icono-LugaresCercanos.png';
+import iconPerfil from '../assets/icono-VerPerfil.png';
+import iconLogout from '../assets/icono-CerrarSesion.png';
 
-function MenuLink({ icon, label, onClick }) {
+function MenuLink({ icon, label, onClick, isImage }) {
   return (
     <button 
       onClick={onClick}
       className="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 transition-colors text-left"
     >
-      <span className="text-2xl">{icon}</span>
+      {isImage ? (
+        <img src={icon} alt={label} className="w-6 h-6" />
+      ) : (
+        <span className="text-2xl">{icon}</span>
+      )}
       <span className="font-medium text-gray-800">{label}</span>
     </button>
   );
@@ -55,32 +65,32 @@ export default function MenuOverlay({ isOpen, onClose }) {
         {/* Items del Menu */}
         <nav className="p-4 space-y-4">
           <MenuLink 
-            icon="🏠" 
+            icon={iconHome}
+            isImage={true}
             label="Pantalla principal" 
             onClick={() => handleNavigation('/home')}
           />
           <MenuLink 
-            icon="📋" 
+            icon={iconItinerarios}
+            isImage={true}
             label="Ver itinerarios" 
             onClick={() => handleNavigation('/itinerarios')}
           />
           <MenuLink 
-            icon="📍" 
+            icon={iconItinerarioActual}
+            isImage={true}
             label="Ver itinerario actual" 
             onClick={() => handleNavigation('/itinerario-actual')}
           />
           <MenuLink 
-            icon="🗺️" 
+            icon={iconLugaresCercanos}
+            isImage={true}
             label="Lugares cercanos" 
             onClick={() => handleNavigation('/lugares-cercanos')}
           />
           <MenuLink 
-            icon="⭐" 
-            label="Lugares favoritos" 
-            onClick={() => handleNavigation('/favoritos')}
-          />
-          <MenuLink 
-            icon="👤" 
+            icon={iconPerfil}
+            isImage={true}
             label="Ver perfil" 
             onClick={() => handleNavigation('/perfil')}
           />
@@ -93,8 +103,9 @@ export default function MenuOverlay({ isOpen, onClose }) {
                navigate('/');
                onClose();
              }}
-             className="w-full bg-red-500 text-white py-2 rounded-lg font-semibold hover:bg-red-600 transition-colors"
+             className="w-full flex items-center gap-3 bg-red-500 text-white py-2 px-3 rounded-lg font-semibold hover:bg-red-600 transition-colors"
           >
+            <img src={iconLogout} alt="Cerrar sesión" className="w-5 h-5" />
             Cerrar sesión
           </button>
         </div>
