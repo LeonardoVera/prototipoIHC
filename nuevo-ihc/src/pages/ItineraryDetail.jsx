@@ -30,6 +30,7 @@ import CommentSection from "../components/comments/CommentSection";
 // 6. Iconos
 import { IoImageOutline, IoTimeOutline, IoCashOutline, IoMapOutline } from "react-icons/io5";
 import { FaBus } from "react-icons/fa";
+import PlaceDetails from "./PlaceDetails";
 
 const PhotoIcon = () => (<IoImageOutline />);
 const DurationIcon = () => (<IoTimeOutline />);
@@ -51,6 +52,7 @@ export default function ItineraryDetails({ itineraryIdProp, onCloseModal }) {
   const [currentItinerary, setCurrentItinerary] = useState(null);
   const [userVotes, setUserVotes] = useState({});
   const [isMapOpen, setIsMapOpen] = useState(false);
+  const [selectedPlaceId, setSelectedPlaceId] = useState(null);
 
   // 3. CAMBIO: Cargar datos con useEffect
   // Es más seguro cargar la data aquí que directamente en la inicialización
@@ -67,6 +69,10 @@ export default function ItineraryDetails({ itineraryIdProp, onCloseModal }) {
     }
     setUserVotes({});
   }, [id]);
+
+  const handlePlaceClick = (placeId) => {
+      setSelectedPlaceId(placeId);
+  };
 
   // Manejador de Votos
   const handleCommentVote = (commentId, voteType) => {
@@ -207,7 +213,10 @@ export default function ItineraryDetails({ itineraryIdProp, onCloseModal }) {
 
               <div className="mb-8">
                 <SectionHeader>Actividades</SectionHeader>
-                <ActivityTimeline activities={currentItinerary.activities} />
+                <ActivityTimeline 
+                  activities={currentItinerary.activities}
+                  onPlaceClick={handlePlaceClick}
+                />
               </div>
 
               <div className="flex items-center gap-4 mb-8">
@@ -273,6 +282,18 @@ export default function ItineraryDetails({ itineraryIdProp, onCloseModal }) {
           />
         </BottomSheet>
       )}
+
+      <BottomSheet 
+        isOpen={!!selectedPlaceId} 
+        onClose={() => setSelectedPlaceId(null)}
+      >
+        {selectedPlaceId && (
+        <PlaceDetails 
+        placeIdProp={selectedPlaceId} 
+        onCloseModal={() => setSelectedPlaceId(null)} 
+        />
+        )}
+      </BottomSheet>
     </div>
   );
 }

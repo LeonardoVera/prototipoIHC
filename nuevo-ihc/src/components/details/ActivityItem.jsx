@@ -1,28 +1,42 @@
 // src/components/itinerary/ActivityItem.jsx
 import React from 'react';
-import { Link } from 'react-router-dom'; // Usaremos Link para "Ver más"
 
-export default function ActivityItem({ time, placeName, placeId }) {
-  return (
-    <div className="flex items-baseline justify-between py-2 border-b border-gray-100 last:border-0">
-      {/* Lado izquierdo: Hora y Nombre */}
-      <div className="flex items-baseline gap-3">
-        <span className="text-sm font-medium text-gray-500 min-w-[45px]">
-          {time}
-        </span>
-        <span className="text-base font-bold text-gray-900">
-          - {placeName}
-        </span>
-      </div>
-      
-      {/* Lado derecho: Enlace "Ver más" */}
-      {/* Esto llevará al detalle del lugar específico */}
-      <Link 
-        to={`/lugar/${placeId}`} 
-        className="text-sm font-medium text-gray-600 hover:text-blue-600 underline underline-offset-2"
-      >
-        Ver más
-      </Link>
-    </div>
-  );
+export default function ActivityItem({ time, placeName, placeId, onPlaceClick }) {
+
+    const handleInfoClick = (e) => {
+        e.preventDefault(); 
+        if (onPlaceClick) {
+            onPlaceClick(placeId);
+        }
+    };
+
+    return (
+        // 1. Contenedor de la Fila: Usamos grid para definir 3 columnas
+        <div className="grid grid-cols-[50px_1fr_60px] gap-2 py-3 border-b border-gray-100 last:border-0 items-start">
+            
+            {/* 2. Columna 1: HORA (Ancho fijo de 50px) */}
+            <span className="text-sm font-medium text-gray-500 text-left">
+                {time}
+            </span>
+            
+            {/* 3. Columna 2: NOMBRE DEL LUGAR (Ocupa el espacio restante) */}
+            <span className="text-base font-bold text-gray-900 leading-tight">
+                {/* Agregamos whitespace-nowrap al guión para que no salte de línea si hay poco espacio */}
+                - <span className="inline break-words">{placeName}</span> 
+            </span>
+            
+            {/* 4. Columna 3: BOTÓN (Ancho fijo, nunca se rompe) */}
+            <button 
+                onClick={handleInfoClick} 
+                className="
+                    text-sm font-medium text-blue-600 hover:text-blue-800 underline underline-offset-2 
+                    flex-shrink-0 
+                    text-right 
+                    whitespace-nowrap 
+                "
+            >
+                Ver más
+            </button>
+        </div>
+    );
 }
