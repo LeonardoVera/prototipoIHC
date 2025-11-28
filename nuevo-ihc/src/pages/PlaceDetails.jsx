@@ -110,10 +110,13 @@ export default function PlaceDetails({placeIdProp, onCloseModal}) {
   };
 
   const handleNewComment = (newComment) => {
-  setCurrentPlaceData(prevData => ({
-    ...prevData,
-    comments: [newComment, ...prevData.comments]
-  }));
+  setCurrentPlaceData(prevData => {
+    const commentWithFlag = { ...newComment, isUserComment: true };
+    return {
+      ...prevData,
+      comments: [commentWithFlag, ...prevData.comments]
+    }
+  });
 };
 
   const handleNewRating = (newRating) => {

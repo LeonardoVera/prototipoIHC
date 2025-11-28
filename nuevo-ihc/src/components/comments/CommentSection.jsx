@@ -8,6 +8,17 @@ import CreateCommentModal from './CreateCommentModal';
 export default function CommentSection({ ratings, comments, userVotes, onVote, onNewRating, onNewComment }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const sortedComments = [...comments].sort((a, b) => {
+    // Si ambos son del usuario o ninguno es del usuario, ordenar por score
+    if ((a.isUserComment && b.isUserComment) || (!a.isUserComment && !b.isUserComment)) {
+        const scoreA = a.likes - a.dislikes;
+        const scoreB = b.likes - b.dislikes;
+        return scoreB - scoreA; // Mayor score primero
+    }
+    // Los comentarios del usuario siempre van primero
+    return a.isUserComment ? -1 : 1;
+   });
+
   const handleCreateCommentClick = () => {
     setIsModalOpen(true);
   };
@@ -43,36 +54,36 @@ export default function CommentSection({ ratings, comments, userVotes, onVote, o
 
   const hasComments = comments && Array.isArray(comments) && comments.length > 0;
 
-  return (
-    <div className="mt-6 space-y-6">
-      <RatingSummary ratingsData={ratings} />
-      
-      <CreateCommentInput onClick={handleCreateCommentClick} /> 
+    return (
+        <div className="mt-6 space-y-6">
+        <RatingSummary ratingsData={ratings} />
+        
+        <CreateCommentInput onClick={handleCreateCommentClick} /> 
 
-      <div>
-        {hasComments ? (
-          <div className="space-y-4">
-            {comments.map(comment => (
-              <CommentCard 
-                key={comment.id} 
-                comment={comment}
-                userVote={userVotes[comment.id]} 
-                onVote={(voteType) => onVote(comment.id, voteType)}
-              />
-            ))}
-          </div>
-        ) : (
-          <BodyText className="text-center text-gray-500">
-            Todavía no hay comentarios. ¡Sé el primero en opinar!
-          </BodyText>
-        )}
-      </div>
+        <div>
+            {hasComments ? (
+            <div className="space-y-4">
+                {sortedComments.map(comment => (
+                <CommentCard 
+                    key={comment.id} 
+                    comment={comment}
+                    userVote={userVotes[comment.id]} 
+                    onVote={(voteType) => onVote(comment.id, voteType)}
+                />
+                ))}
+            </div>
+            ) : (
+            <BodyText className="text-center text-gray-500">
+                Todavía no hay comentarios. ¡Sé el primero en opinar!
+            </BodyText>
+            )}
+        </div>
 
-      <CreateCommentModal 
-        isOpen={isModalOpen} 
-        onClose={handleCloseModal} 
-        onSubmit={handleCommentSubmit} 
-      />
+        <CreateCommentModal 
+            isOpen={isModalOpen} 
+            onClose={handleCloseModal} 
+            onSubmit={handleCommentSubmit} 
+        />
     </div>
   );
 }

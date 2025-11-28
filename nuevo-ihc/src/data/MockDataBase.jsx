@@ -43,7 +43,7 @@ const placesData = {
         userAvatarUrl: 'https://placehold.co/100x100/f87171/ffffff?text=S', // Avatar de Sofia
         date: '15/09/2025',
         text: 'El recorrido estuvo muy bien organizado y los guías fueron atentos en todo momento. Me gustó que se incluyeran tanto espacios culturales como naturales. El tiempo en cada punto fue adecuado para...',
-        likes: 15,
+        likes: 16,
         dislikes: 2
       },
       {
@@ -54,6 +54,15 @@ const placesData = {
         text: 'La ruta fue interesante, aunque en algunos lugares se quedó corta la visita. Hubiera sido ideal tener más tiempo en el Parque Kennedy. ¡El guía excelente!',
         likes: 8,
         dislikes: 0
+      },
+      {
+        id: 3,
+        username: 'aldanachavez',
+        userAvatarUrl: 'https://placehold.co/100x100/60a5fa/ffffff?text=C', // Avatar de Carlos
+        date: '15/09/2025',
+        text: 'zzzzzzzz',
+        likes: 25,
+        dislikes: 10
       }
     ],
   },
