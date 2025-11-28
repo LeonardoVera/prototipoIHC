@@ -109,6 +109,28 @@ export default function PlaceDetails({placeIdProp, onCloseModal}) {
     // Lógica para compartir
   };
 
+  const handleNewRating = (newRating) => {
+  // Actualizar el resumen de calificaciones
+    setCurrentPlaceData(prevData => {
+      const oldSummary = prevData.ratingsSummary;
+      const totalRatings = oldSummary.totalRatings + 1;
+      const newAverage = ((oldSummary.average * oldSummary.totalRatings) + newRating) / totalRatings;
+      
+      // Incrementar el contador de la estrella correspondiente
+      const newBreakdown = { ...oldSummary.breakdown };
+      newBreakdown[newRating] = (newBreakdown[newRating] || 0) + 1;
+      
+      return {
+        ...prevData,
+        ratingsSummary: {
+          average: parseFloat(newAverage.toFixed(1)),
+          totalRatings: totalRatings,
+          breakdown: newBreakdown
+        }
+      };
+    });
+  };
+
   // Manejo de error: si el ID no existe en la BD
   if (!currentPlaceData) {
     return (
@@ -120,8 +142,8 @@ export default function PlaceDetails({placeIdProp, onCloseModal}) {
 
   // --- Renderizado del Componente ---
   return (
-    <div className="h-full flex flex-col overflow-hidden">
-      <div className="h-full flex flex-col overflow-hidden">
+    <div className="h-full flex flex-col">
+      <div className="h-full flex flex-col">
         
         <PageHeader onShareClick={handleShare} onCloseClick={handleClose} />
         
@@ -184,6 +206,7 @@ export default function PlaceDetails({placeIdProp, onCloseModal}) {
               comments={currentPlaceData.comments}
               userVotes={userVotes}
               onVote={handleCommentVote}
+              onNewRating={handleNewRating}
             />
           )}
         </main>
