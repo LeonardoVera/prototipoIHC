@@ -41,8 +41,8 @@ export default function PlaceDetails({placeIdProp, onCloseModal}) {
 
   useEffect(() => {
     setCurrentPlaceData(getPlaceById(id));
-    setUserVotes({}); // Resetea los votos al cambiar de lugar
-  }, [id, getPlaceById]); // Añadimos getPlaceById a las dependencias
+    setUserVotes({});
+  }, [id]);
 
   const handleCommentVote = (commentId, voteType) => {
     const currentVote = userVotes[commentId];
@@ -54,41 +54,38 @@ export default function PlaceDetails({placeIdProp, onCloseModal}) {
     let newVoteStatus = 'none';
 
     if (voteType === 'like') {
-      if (currentVote === 'liked') { // Quitar like
+      if (currentVote === 'liked') {
         commentToUpdate.likes -= 1;
         newVoteStatus = 'none';
-      } else if (currentVote === 'disliked') { // Cambiar de dislike a like
+      } else if (currentVote === 'disliked') {
         commentToUpdate.likes += 1;
         commentToUpdate.dislikes -= 1;
         newVoteStatus = 'liked';
-      } else { // Añadir like
+      } else {
         commentToUpdate.likes += 1;
         newVoteStatus = 'liked';
       }
     } else if (voteType === 'dislike') {
-      if (currentVote === 'disliked') { // Quitar dislike
+      if (currentVote === 'disliked') {
         commentToUpdate.dislikes -= 1;
         newVoteStatus = 'none';
-      } else if (currentVote === 'liked') { // Cambiar de like a dislike
+      } else if (currentVote === 'liked') {
         commentToUpdate.dislikes += 1;
         commentToUpdate.likes -= 1;
         newVoteStatus = 'disliked';
-      } else { // Añadir dislike
+      } else {
         commentToUpdate.dislikes += 1;
         newVoteStatus = 'disliked';
       }
     }
 
-    // Actualizamos el comentario en el array de copia
     newComments[commentIndex] = commentToUpdate;
 
-    // Actualizamos el registro de votos del usuario
     setUserVotes(prevVotes => ({
       ...prevVotes,
       [commentId]: newVoteStatus === 'none' ? undefined : newVoteStatus
     }));
 
-    // "Guardamos" los cambios en el estado principal
     setCurrentPlaceData(prevData => ({
       ...prevData,
       comments: newComments
@@ -98,50 +95,60 @@ export default function PlaceDetails({placeIdProp, onCloseModal}) {
   const handleClose = () => {
     console.log("Cerrar/Volver");
     if (onCloseModal) {
-      onCloseModal(); // Si estoy en modal, cierro el modal
+      onCloseModal();
     } else {
       console.log("Volver (Navegación normal)");
     }
-    };
+  };
 
   const handleShare = () => {
     console.log("Compartir");
-    // Lógica para compartir
   };
 
   const handleNewComment = (newComment) => {
-  setCurrentPlaceData(prevData => {
-    const commentWithFlag = { ...newComment, isUserComment: true };
-    return {
-      ...prevData,
-      comments: [commentWithFlag, ...prevData.comments]
-    }
-  });
-};
+    setCurrentPlaceData(prevData => {
+      const commentWithFlag = { ...newComment, isUserComment: true };
+      return {
+        ...prevData,
+        comments: [commentWithFlag, ...prevData.comments]
+      }
+    });
+  };
 
   const handleNewRating = (newRating) => {
-  // Actualizar el resumen de calificaciones
     setCurrentPlaceData(prevData => {
       const oldSummary = prevData.ratingsSummary;
       const totalRatings = oldSummary.totalRatings + 1;
-      const newAverage = ((oldSummary.average * oldSummary.totalRatings) + newRating) / totalRatings;
       
-      // Incrementar el contador de la estrella correspondiente
-      const newBreakdown = { ...oldSummary.breakdown };
-      newBreakdown[newRating] = (newBreakdown[newRating] || 0) + 1;
+      // Calculamos el nuevo promedio
+      const newAverage = ((oldSummary.averageRating * oldSummary.totalRatings) + newRating) / totalRatings;
+      
+      // Actualizamos el breakdown: sumamos 1 al índice correspondiente
+      // ratingBreakdown es [5★%, 4★%, 3★%, 2★%, 1★%]
+      const newBreakdown = [...oldSummary.ratingBreakdown];
+      
+      // Calculamos el nuevo porcentaje para cada estrella
+      const recalculatedBreakdown = newBreakdown.map((percentage, index) => {
+        const starValue = 5 - index;
+        // Contamos cuántos comentarios tienen esta calificación
+        const count = prevData.comments.filter(c => c.rating === starValue).length;
+        // Si es la nueva calificación, sumamos 1
+        const finalCount = starValue === newRating ? count + 1 : count;
+        // Calculamos el porcentaje
+        return Math.round((finalCount / totalRatings) * 100);
+      });
       
       return {
         ...prevData,
         ratingsSummary: {
-          average: parseFloat(newAverage.toFixed(1)),
+          averageRating: parseFloat(newAverage.toFixed(1)),
           totalRatings: totalRatings,
-          breakdown: newBreakdown
+          ratingBreakdown: recalculatedBreakdown
         }
       };
     });
   };
 
-  // Manejo de error: si el ID no existe en la BD
   if (!currentPlaceData) {
     return (
       <div className="min-h-screen bg-gray-100 flex justify-center items-center p-4">
@@ -150,17 +157,14 @@ export default function PlaceDetails({placeIdProp, onCloseModal}) {
     );
   }
 
-  // --- Renderizado del Componente ---
   return (
     <div className="h-full flex flex-col">
       <div className="h-full flex flex-col">
         
         <PageHeader onShareClick={handleShare} onCloseClick={handleClose} />
         
-        {/* Contenido principal (cambia según la pestaña) */}
         <main className="p-6 pt-0 flex-grow overflow-y-auto">
           
-          {/* --- Pestaña de INFORMACIÓN --- */}
           {activeTab === 'info' && (
             <div className="mt-6 space-y-4">
               <PlaceTitle>{currentPlaceData.name}</PlaceTitle>
@@ -194,7 +198,7 @@ export default function PlaceDetails({placeIdProp, onCloseModal}) {
               
               <div>
                 <SectionHeader>Qué ver y hacer</SectionHeader>
-                  <BulletedList>
+                <BulletedList>
                   {currentPlaceData.whatToDo.map((item, index)=> (
                     <ListItem key={index}>
                       {item}
@@ -209,7 +213,6 @@ export default function PlaceDetails({placeIdProp, onCloseModal}) {
             </div>
           )}
 
-          {/* --- Pestaña de COMENTARIOS --- */}
           {activeTab === 'comments' && (
             <CommentSection 
               ratings={currentPlaceData.ratingsSummary}
@@ -222,7 +225,6 @@ export default function PlaceDetails({placeIdProp, onCloseModal}) {
           )}
         </main>
 
-        {/* --- BARRA DE NAVEGACIÓN (Tabs) --- */}
         <div className="border-t border-gray-200 sticky bottom-0 bg-white">
           <TabNavigator>
             <TabButton

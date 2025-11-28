@@ -1,8 +1,7 @@
 // --- Base de Datos Simulada ---
-// Usamos un objeto donde la 'key' es el ID
-const imgHuacaMain = "/images/amanecer.jpg"; // Placeholder o imagen real si existe
-const imgHuacaCerca = "/images/catedral.jpg"; // Placeholder
-const imgRestaurante = "/images/barranco-lima.jpg"; // Placeholder
+const imgHuacaMain = "/images/amanecer.jpg";
+const imgHuacaCerca = "/images/catedral.jpg";
+const imgRestaurante = "/images/barranco-lima.jpg";
 const centroHistorico = "/images/catedral.jpg";
 const barrancoAtardecer = "/images/barranco-lima.jpg";
 const cevicheriaMar = "/images/la-punta.jpg";
@@ -33,36 +32,38 @@ const placesData = {
     ratingsSummary: {
       averageRating: 4.4,
       totalRatings: 35415,
-      // % de 5, 4, 3, 2, 1 estrellas
-      ratingBreakdown: [65, 20, 10, 3, 2], 
+      ratingBreakdown: [65, 20, 10, 3, 2], // 5★, 4★, 3★, 2★, 1★
     },
     comments: [
       {
         id: 1,
         username: 'sofiaviajera',
-        userAvatarUrl: 'https://placehold.co/100x100/f87171/ffffff?text=S', // Avatar de Sofia
+        userAvatarUrl: 'https://placehold.co/100x100/f87171/ffffff?text=S',
         date: '15/09/2025',
         text: 'El recorrido estuvo muy bien organizado y los guías fueron atentos en todo momento. Me gustó que se incluyeran tanto espacios culturales como naturales. El tiempo en cada punto fue adecuado para...',
         likes: 16,
-        dislikes: 2
+        dislikes: 2,
+        rating: 5
       },
       {
         id: 2,
         username: 'carlosenruta',
-        userAvatarUrl: 'https://placehold.co/100x100/60a5fa/ffffff?text=C', // Avatar de Carlos
+        userAvatarUrl: 'https://placehold.co/100x100/60a5fa/ffffff?text=C',
         date: '15/09/2025',
         text: 'La ruta fue interesante, aunque en algunos lugares se quedó corta la visita. Hubiera sido ideal tener más tiempo en el Parque Kennedy. ¡El guía excelente!',
         likes: 8,
-        dislikes: 0
+        dislikes: 0,
+        rating: 4
       },
       {
         id: 3,
         username: 'aldanachavez',
-        userAvatarUrl: 'https://placehold.co/100x100/60a5fa/ffffff?text=C', // Avatar de Carlos
+        userAvatarUrl: 'https://placehold.co/100x100/60a5fa/ffffff?text=C',
         date: '15/09/2025',
-        text: 'zzzzzzzz',
+        text: 'Decepcionante, esperaba más del lugar.',
         likes: 25,
-        dislikes: 10
+        dislikes: 10,
+        rating: 2
       }
     ],
   },
@@ -72,10 +73,10 @@ const placesData = {
     location: 'Cercado de Lima, Perú',
     schedule: 'Abierto: 3:00 PM - 10:00 PM',
     price: 'Entrada: S/ 4.00',
-    security: { level: 'warning' }, // Nivel de seguridad medio
+    security: { level: 'warning' },
     images: [
       { id: 1, url: 'https://peru.info/archivos/publicacion/157-imagen-15292027122021.jpg', description: 'Fuente de la Fantasía' },
-      { id: 2, url: 'https://circuitomagicodelagua.pe/wp-content/uploads/2025/02/history1.jpg', description: 'Funte de la Fantasía' },
+      { id: 2, url: 'https://circuitomagicodelagua.pe/wp-content/uploads/2025/02/history1.jpg', description: 'Fuente de la Fantasía' },
     ],
     description: 'Conocido como el "Parque de las Aguas", es un conjunto de trece fuentes ornamentales que ofrecen un espectáculo de agua, luz y música.',
     whatToDo: [
@@ -92,11 +93,12 @@ const placesData = {
       {
         id: 1,
         username: 'luzdelsur',
-        userAvatarUrl: null, // Probar el fallback
+        userAvatarUrl: null,
         date: '10/09/2025',
         text: '¡Mágico! Fui de noche y el espectáculo de luces es imperdible.',
         likes: 22,
-        dislikes: 0
+        dislikes: 0,
+        rating: 5
       }
     ],
   },
@@ -131,7 +133,8 @@ const placesData = {
         date: '05/09/2025',
         text: 'El ambiente es increíble. Aprendí muchísimo sobre la diferencia entre el pisco Quebranta y el Italia. ¡Recomendado!',
         likes: 34,
-        dislikes: 0
+        dislikes: 0,
+        rating: 5
       }
     ],
   },
@@ -165,7 +168,8 @@ const placesData = {
         date: '12/09/2025',
         text: 'Es caro, pero vale cada centavo. El pescado se siente fresquísimo. Hay que ir temprano porque se llena rápido.',
         likes: 56,
-        dislikes: 2
+        dislikes: 2,
+        rating: 5
       }
     ],
   },
@@ -200,10 +204,12 @@ const placesData = {
         date: '01/09/2025',
         text: 'Mucha historia en cada esquina. Recomiendo ir con guía para entender bien la arquitectura. Ojo con el celular en las calles aledañas.',
         likes: 89,
-        dislikes: 1
+        dislikes: 1,
+        rating: 4
       }
     ],
   },
+
   'barranco': {
     name: 'Distrito de Barranco',
     location: 'Barranco, Lima',
@@ -234,7 +240,8 @@ const placesData = {
         date: '25/09/2025',
         text: 'Los murales son impresionantes. Es el lugar más "instagrammable" de Lima. Recomiendo ir al atardecer para las mejores fotos.',
         likes: 120,
-        dislikes: 3
+        dislikes: 3,
+        rating: 5
       },
       {
         id: 2,
@@ -243,39 +250,31 @@ const placesData = {
         date: '22/09/2025',
         text: 'Excelente ambiente nocturno. Ayahuasca Bar es una parada obligatoria si te gusta la arquitectura y los buenos tragos.',
         likes: 45,
-        dislikes: 1
+        dislikes: 1,
+        rating: 5
       }
     ],
   },
-  
-  // ... puedes añadir más lugares aquí
 };
 
-// src/data/MockDataBase.js
-
-// ... (tu objeto placesData existente) ...
-
-// --- NUEVA DATA: ITINERARIOS ---
+// --- ITINERARIOS ---
 const itinerariesData = {
   'tour-relax': {
     name: 'Tour relax',
-    // Info rápida
     quickInfo: {
       photosLabel: 'Fotos, paisaje',
       duration: '8h',
       price: 'S/.60 por persona'
     },
     description: 'Un recorrido pensado para quienes quieren disfrutar lo mejor de Lima en un solo día. Inicia con la frescura de Huaca Pucllana y sigue con una experiencia única en el Museo del Pisco...',
-    // La línea de tiempo de actividades
     activities: [
       { time: '09:00', placeName: 'Huaca Pucllana', placeId: 'huaca-pucllana' },
-      { time: '11:00', placeName: 'Museo del Pisco', placeId: 'museo-pisco' }, // (Asumiendo que este ID existirá)
+      { time: '11:00', placeName: 'Museo del Pisco', placeId: 'museo-pisco' },
       { time: '14:00', placeName: 'Cevichería La Mar', placeId: 'cevicheria-lamar' },
       { time: '16:00', placeName: 'Centro Histórico', placeId: 'centro-historico' },
       { time: '19:00', placeName: 'Barranco', placeId: 'barranco' },
     ],
     securityLevel: 'safe',
-    // ¡IMPORTANTE! Imágenes de los lugares del itinerario para el carrusel
     images: [
       { id: 1, url: imgHuacaMain, description: 'Parada 1: Huaca Pucllana' },
       { id: 2, url: museoPisco, description: 'Parada 2: Museo del pisco' },
@@ -283,11 +282,10 @@ const itinerariesData = {
       { id: 4, url: centroHistorico, description: 'Parada 4: Centro Histórico' },
       { id: 5, url: barrancoAtardecer, description: 'Parada 5: Barranco al atardecer' }
     ],
-
     ratingsSummary: {
       averageRating: 4.9,
       totalRatings: 120,
-      ratingBreakdown: [90, 20, 5, 3, 2],
+      ratingBreakdown: [90, 8, 1, 1, 0],
     },
     comments: [
       {
@@ -297,7 +295,8 @@ const itinerariesData = {
         date: '20/09/2025',
         text: '¡La mejor forma de conocer Lima en un día! La parada en Barranco fue mágica.',
         likes: 45,
-        dislikes: 1
+        dislikes: 1,
+        rating: 5
       },
       {
         id: 2,
@@ -306,38 +305,29 @@ const itinerariesData = {
         date: '18/09/2025',
         text: 'Muy completo, aunque hubiera preferido estar más tiempo en el Museo del Pisco.',
         likes: 12,
-        dislikes: 0
+        dislikes: 0,
+        rating: 4
       }
     ]
   }
-  // ... puedes agregar más itinerarios
 };
 
-// ... (tu función getPlaceById existente) ...
-
-// --- NUEVA FUNCIÓN ---
-export const getItineraryById = (id) => {
-  return itinerariesData[id] || null;
-};
-
-// --- Función de API Simulada ---
-// Esta función simula cómo le pedirías datos a tu base de datos
+// --- FUNCIONES DE API ---
 export const getPlaceById = (id) => {
-  // Retorna los datos del lugar que coincida con el ID,
-  // o 'null' si no lo encuentra.
   return placesData[id] || null;
 };
 
 export const getAllPlaces = () => {
-  // Object.entries convierte el objeto en un array de [key, value]
-  // Luego lo mapeamos para incluir el ID dentro del objeto
   return Object.entries(placesData).map(([key, data]) => ({
     id: key,
     ...data
   }));
 };
 
-// Devuelve todos los itinerarios en un array
+export const getItineraryById = (id) => {
+  return itinerariesData[id] || null;
+};
+
 export const getAllItineraries = () => {
   return Object.entries(itinerariesData).map(([key, data]) => ({
     id: key,
