@@ -250,6 +250,7 @@ export default function PlaceDetails({placeIdProp, onCloseModal}) {
           <RouteMap 
             placeName={currentPlaceData.name}
             placeCoordinates={currentPlaceData.coordinates}
+            onClose={() => setIsMapOpen(false)}
           />
         </BottomSheet>
       )}

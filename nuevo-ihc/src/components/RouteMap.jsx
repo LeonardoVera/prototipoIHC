@@ -1,5 +1,5 @@
 import { MapContainer, TileLayer, Marker, Popup, Polyline } from 'react-leaflet';
-import { FaCar, FaWalking, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaCar, FaWalking, FaTimes } from 'react-icons/fa';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 
@@ -11,7 +11,7 @@ L.Icon.Default.mergeOptions({
   shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
 });
 
-export default function RouteMap({ placeName, placeCoordinates }) {
+export default function RouteMap({ placeName, placeCoordinates, onClose }) {
     // Coordenadas del usuario (posición simulada, ej: Parque Kennedy)
     const userCoords = { lat: -12.1215, lng: -77.0298 }; 
     const isSameLocation = userCoords.lat === placeCoordinates.lat && userCoords.lng === placeCoordinates.lng;
@@ -30,9 +30,18 @@ export default function RouteMap({ placeName, placeCoordinates }) {
 
     return (
         <div className="h-full flex flex-col bg-gray-50">
-            <h2 className="text-xl font-bold p-4 border-b text-gray-800">
-                Ruta a {placeName}
-            </h2>
+            <div className="p-4 border-b bg-white flex items-center justify-between">
+                <h2 className="text-xl font-bold text-gray-800">
+                    Ruta a {placeName}
+                </h2>
+                <button
+                    onClick={onClose}
+                    className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                    aria-label="Cerrar mapa"
+                >
+                    <FaTimes className="w-6 h-6 text-gray-600" />
+                </button>
+            </div>
 
             {/* Mapa Real con Leaflet */}
             <div className="flex-grow relative">
