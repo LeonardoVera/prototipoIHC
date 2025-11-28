@@ -270,7 +270,7 @@ const itinerariesData = {
     category: 'popular', // Para "Más visitados de la semana"
     quickInfo: {
       photosLabel: 'Fotos, paisaje',
-      duration: '8h',
+      duration: '10h',
       price: 'S/.60 por persona'
     },
     description: 'Un recorrido pensado para quienes quieren disfrutar lo mejor de Lima en un solo día. Inicia con la frescura de Huaca Pucllana y sigue con una experiencia única en el Museo del Pisco...',
@@ -314,6 +314,16 @@ const itinerariesData = {
         likes: 12,
         dislikes: 0,
         rating: 4
+      },
+      {
+        id: 3,
+        username: 'Rhamses',
+        userAvatarUrl: 'https://placehold.co/100x100/f472b6/ffffff?text=A',
+        date: '18/09/2025',
+        text: 'oño',
+        likes: 12,
+        dislikes: 0,
+        rating: 1
       }
     ]
   },

@@ -2,13 +2,15 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 // 1. Importar la función de datos
-import { getItineraryById, calculateRatingsFromComments } from "../data/MockDataBase";
+import { getItineraryById, calculateRatingsFromComments, getPlaceById } from "../data/MockDataBase";
 
 // 2. Importar Componentes UI Generales
 import PageHeader from "../components/PageHeader";
 import Button from "../components/Button";
 import TabNavigator from "../components/TabNavigator";
 import TabButton from "../components/TabButton";
+import BottomSheet from "../components/BottomSheet";
+import ItineraryRouteMap from "../components/ItineraryRouteMap";
 
 // 3. Importar Componentes de Detalle (Reutilizados)
 import PlaceTitle from "../components/details/PlaceTitle";
@@ -48,6 +50,7 @@ export default function ItineraryDetails({ itineraryIdProp, onCloseModal }) {
   // Inicializamos con null para evitar errores si el ID cambia rápido
   const [currentItinerary, setCurrentItinerary] = useState(null);
   const [userVotes, setUserVotes] = useState({});
+  const [isMapOpen, setIsMapOpen] = useState(false);
 
   // 3. CAMBIO: Cargar datos con useEffect
   // Es más seguro cargar la data aquí que directamente en la inicialización
@@ -121,6 +124,10 @@ export default function ItineraryDetails({ itineraryIdProp, onCloseModal }) {
   };
 
   const handleShare = () => console.log("Compartir");
+
+  const handleViewRoute = () => {
+    setIsMapOpen(true);
+  };
 
   const handleNewComment = (newComment) => {
     setCurrentItinerary(prevData => {
@@ -205,7 +212,7 @@ export default function ItineraryDetails({ itineraryIdProp, onCloseModal }) {
 
               <div className="flex items-center gap-4 mb-8">
                  <FaBus />
-                 <Button className="flex-grow" onClick={() => console.log("Ver mapa")}>
+                 <Button className="flex-grow" onClick={handleViewRoute}>
                     Ver ruta
                  </Button>
               </div>
@@ -248,6 +255,24 @@ export default function ItineraryDetails({ itineraryIdProp, onCloseModal }) {
         </div>
 
       </div>
+
+      {/* Mapa del itinerario */}
+      {currentItinerary && (
+        <BottomSheet 
+          isOpen={isMapOpen} 
+          onClose={() => setIsMapOpen(false)}
+        >
+          <ItineraryRouteMap 
+            itineraryName={currentItinerary.name}
+            places={currentItinerary.activities.map(activity => ({
+              name: activity.placeName,
+              time: activity.time,
+              coordinates: getPlaceById(activity.placeId)?.coordinates || { lat: 0, lng: 0 }
+            }))}
+            onClose={() => setIsMapOpen(false)}
+          />
+        </BottomSheet>
+      )}
     </div>
   );
 }
