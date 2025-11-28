@@ -109,6 +109,13 @@ export default function PlaceDetails({placeIdProp, onCloseModal}) {
     // Lógica para compartir
   };
 
+  const handleNewComment = (newComment) => {
+  setCurrentPlaceData(prevData => ({
+    ...prevData,
+    comments: [newComment, ...prevData.comments]
+  }));
+};
+
   const handleNewRating = (newRating) => {
   // Actualizar el resumen de calificaciones
     setCurrentPlaceData(prevData => {
@@ -207,6 +214,7 @@ export default function PlaceDetails({placeIdProp, onCloseModal}) {
               userVotes={userVotes}
               onVote={handleCommentVote}
               onNewRating={handleNewRating}
+              onNewComment={handleNewComment}
             />
           )}
         </main>
