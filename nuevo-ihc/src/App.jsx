@@ -6,6 +6,7 @@ import ItineraryDetails from './pages/ItineraryDetail';
 import CurrentItinerary from './pages/CurrentItinerary';
 import NearbyPlaces from './pages/NearbyPlaces';
 import RecommendedPlaces from './pages/RecommendedPlaces';
+import RecommendedItineraries from './pages/RecommendedItineraries';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Recovery from './pages/Recovery';
@@ -21,6 +22,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/home" element={<RecommendedPlaces />} />
+        <Route path="/itinerarios" element={<RecommendedItineraries />} />
         <Route path="/perfil" element={<Profile />} />
         <Route path="/registro" element={<Register />} />
         <Route path="/recuperar" element={<Recovery />} />

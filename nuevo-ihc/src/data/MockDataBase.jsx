@@ -267,6 +267,7 @@ const placesData = {
 const itinerariesData = {
   'tour-relax': {
     name: 'Tour relax',
+    category: 'popular', // Para "Más visitados de la semana"
     quickInfo: {
       photosLabel: 'Fotos, paisaje',
       duration: '8h',
@@ -313,6 +314,348 @@ const itinerariesData = {
         likes: 12,
         dislikes: 0,
         rating: 4
+      }
+    ]
+  },
+  'centro-historico-tour': {
+    name: 'Centro Histórico Colonial',
+    category: 'popular',
+    quickInfo: {
+      photosLabel: 'Historia, arquitectura',
+      duration: '5h',
+      price: 'S/.35 por persona'
+    },
+    description: 'Descubre la riqueza histórica del Centro de Lima, Patrimonio de la Humanidad. Recorre plazas coloniales, iglesias centenarias y las famosas catacumbas de San Francisco.',
+    activities: [
+      { time: '09:00', placeName: 'Plaza Mayor', placeId: 'centro-historico' },
+      { time: '10:30', placeName: 'Catacumbas San Francisco', placeId: 'centro-historico' },
+      { time: '12:00', placeName: 'Museo del Pisco', placeId: 'museo-pisco' },
+      { time: '14:00', placeName: 'Almuerzo típico', placeId: 'cevicheria-lamar' },
+    ],
+    securityLevel: 'warning',
+    images: [
+      { id: 1, url: centroHistorico, description: 'Plaza Mayor de Lima' },
+      { id: 2, url: catacumbas, description: 'Catacumbas de San Francisco' },
+      { id: 3, url: museoPisco, description: 'Museo del Pisco' }
+    ],
+    ratingsSummary: {
+      averageRating: 4.7,
+      totalRatings: 89,
+      ratingBreakdown: [75, 18, 5, 1, 1],
+    },
+    comments: [
+      {
+        id: 1,
+        username: 'historiador_pe',
+        userAvatarUrl: 'https://placehold.co/100x100/6366f1/ffffff?text=H',
+        date: '22/09/2025',
+        text: 'Increíble recorrido por la historia de Lima. Las catacumbas son impresionantes.',
+        likes: 32,
+        dislikes: 2,
+        rating: 5
+      }
+    ]
+  },
+  'barranco-bohemio': {
+    name: 'Barranco Bohemio',
+    category: 'popular',
+    quickInfo: {
+      photosLabel: 'Arte, murales',
+      duration: '4h',
+      price: 'S/.25 por persona'
+    },
+    description: 'Sumérgete en el barrio más artístico de Lima. Murales coloridos, galerías de arte, el icónico Puente de los Suspiros y los mejores atardeceres frente al mar.',
+    activities: [
+      { time: '15:00', placeName: 'Puente de los Suspiros', placeId: 'barranco' },
+      { time: '16:00', placeName: 'Bajada de Baños', placeId: 'barranco' },
+      { time: '17:30', placeName: 'Museo MATE', placeId: 'barranco' },
+      { time: '19:00', placeName: 'Atardecer en malecón', placeId: 'barranco' },
+    ],
+    securityLevel: 'safe',
+    images: [
+      { id: 1, url: barrancoAtardecer, description: 'Atardecer en Barranco' },
+      { id: 2, url: barrancosalida, description: 'Murales de Barranco' },
+      { id: 3, url: '/images/barranco-lima.jpg', description: 'Bajada de Baños' }
+    ],
+    ratingsSummary: {
+      averageRating: 4.8,
+      totalRatings: 156,
+      ratingBreakdown: [82, 14, 3, 1, 0],
+    },
+    comments: [
+      {
+        id: 1,
+        username: 'artista_urbano',
+        userAvatarUrl: 'https://placehold.co/100x100/ec4899/ffffff?text=A',
+        date: '25/09/2025',
+        text: 'El mejor lugar para fotos en Lima. Los murales son espectaculares.',
+        likes: 67,
+        dislikes: 1,
+        rating: 5
+      }
+    ]
+  },
+  'gastronomico-miraflores': {
+    name: 'Tour Gastronómico',
+    category: 'popular',
+    quickInfo: {
+      photosLabel: 'Comida, cultura',
+      duration: '6h',
+      price: 'S/.120 por persona'
+    },
+    description: 'Experimenta los sabores de la gastronomía peruana, reconocida como una de las mejores del mundo. Ceviche, pisco sour y mucho más.',
+    activities: [
+      { time: '11:00', placeName: 'Mercado de Surquillo', placeId: 'cevicheria-lamar' },
+      { time: '13:00', placeName: 'Cevichería La Mar', placeId: 'cevicheria-lamar' },
+      { time: '15:00', placeName: 'Museo del Pisco', placeId: 'museo-pisco' },
+      { time: '17:00', placeName: 'Café en Barranco', placeId: 'barranco' },
+    ],
+    securityLevel: 'safe',
+    images: [
+      { id: 1, url: cevicheriaMar, description: 'Ceviche peruano' },
+      { id: 2, url: museoPisco, description: 'Pisco Sour' },
+      { id: 3, url: barrancoAtardecer, description: 'Café en Barranco' }
+    ],
+    ratingsSummary: {
+      averageRating: 4.9,
+      totalRatings: 203,
+      ratingBreakdown: [88, 10, 2, 0, 0],
+    },
+    comments: [
+      {
+        id: 1,
+        username: 'foodie_world',
+        userAvatarUrl: 'https://placehold.co/100x100/f97316/ffffff?text=F',
+        date: '20/09/2025',
+        text: '¡El ceviche más fresco que he probado! Vale cada sol.',
+        likes: 89,
+        dislikes: 0,
+        rating: 5
+      }
+    ]
+  },
+  'lima-cultural': {
+    name: 'Lima Cultural',
+    category: 'forYou',
+    quickInfo: {
+      photosLabel: 'Museos, historia',
+      duration: '7h',
+      price: 'S/.55 por persona'
+    },
+    description: 'Un viaje por la rica cultura limeña. Desde la época precolombina en Huaca Pucllana hasta el arte contemporáneo en los museos de Barranco.',
+    activities: [
+      { time: '09:00', placeName: 'Huaca Pucllana', placeId: 'huaca-pucllana' },
+      { time: '11:30', placeName: 'Centro Histórico', placeId: 'centro-historico' },
+      { time: '14:00', placeName: 'Almuerzo', placeId: 'cevicheria-lamar' },
+      { time: '16:00', placeName: 'Museo MATE', placeId: 'barranco' },
+    ],
+    securityLevel: 'safe',
+    images: [
+      { id: 1, url: imgHuacaMain, description: 'Huaca Pucllana' },
+      { id: 2, url: centroHistorico, description: 'Centro Histórico' },
+      { id: 3, url: barrancoAtardecer, description: 'Museo MATE' }
+    ],
+    ratingsSummary: {
+      averageRating: 4.6,
+      totalRatings: 78,
+      ratingBreakdown: [70, 22, 6, 1, 1],
+    },
+    comments: [
+      {
+        id: 1,
+        username: 'cultura_viva',
+        userAvatarUrl: 'https://placehold.co/100x100/8b5cf6/ffffff?text=C',
+        date: '18/09/2025',
+        text: 'Perfecto para conocer la historia de Lima en un día.',
+        likes: 34,
+        dislikes: 1,
+        rating: 5
+      }
+    ]
+  },
+  'nocturno-lima': {
+    name: 'Lima de Noche',
+    category: 'forYou',
+    quickInfo: {
+      photosLabel: 'Nocturno, luces',
+      duration: '5h',
+      price: 'S/.45 por persona'
+    },
+    description: 'Descubre la magia de Lima cuando se encienden las luces. El Circuito Mágico del Agua y los bares de Barranco te esperan.',
+    activities: [
+      { time: '18:00', placeName: 'Circuito Mágico del Agua', placeId: 'parque-aguas' },
+      { time: '20:00', placeName: 'Cena en Miraflores', placeId: 'cevicheria-lamar' },
+      { time: '22:00', placeName: 'Bares de Barranco', placeId: 'barranco' },
+    ],
+    securityLevel: 'warning',
+    images: [
+      { id: 1, url: '/images/parque-kennedy.jpg', description: 'Circuito del Agua' },
+      { id: 2, url: barrancoAtardecer, description: 'Noche en Barranco' },
+      { id: 3, url: cevicheriaMar, description: 'Cena nocturna' }
+    ],
+    ratingsSummary: {
+      averageRating: 4.5,
+      totalRatings: 112,
+      ratingBreakdown: [65, 25, 7, 2, 1],
+    },
+    comments: [
+      {
+        id: 1,
+        username: 'nightlife_pe',
+        userAvatarUrl: 'https://placehold.co/100x100/06b6d4/ffffff?text=N',
+        date: '23/09/2025',
+        text: 'El show de luces en el Parque de las Aguas es imperdible.',
+        likes: 56,
+        dislikes: 3,
+        rating: 5
+      }
+    ]
+  },
+  'express-miraflores': {
+    name: 'Miraflores Express',
+    category: 'quick',
+    quickInfo: {
+      photosLabel: 'Rápido, esencial',
+      duration: '3h',
+      price: 'S/.20 por persona'
+    },
+    description: 'Conoce lo esencial de Miraflores en pocas horas. Perfecto si tienes poco tiempo pero quieres llevarte lo mejor.',
+    activities: [
+      { time: '10:00', placeName: 'Huaca Pucllana', placeId: 'huaca-pucllana' },
+      { time: '11:30', placeName: 'Malecón de Miraflores', placeId: 'barranco' },
+      { time: '12:30', placeName: 'Parque Kennedy', placeId: 'museo-pisco' },
+    ],
+    securityLevel: 'safe',
+    images: [
+      { id: 1, url: imgHuacaMain, description: 'Huaca Pucllana' },
+      { id: 2, url: '/images/la-punta.jpg', description: 'Malecón' },
+      { id: 3, url: museoPisco, description: 'Parque Kennedy' }
+    ],
+    ratingsSummary: {
+      averageRating: 4.4,
+      totalRatings: 234,
+      ratingBreakdown: [60, 30, 7, 2, 1],
+    },
+    comments: [
+      {
+        id: 1,
+        username: 'viajero_rapido',
+        userAvatarUrl: 'https://placehold.co/100x100/22c55e/ffffff?text=V',
+        date: '26/09/2025',
+        text: 'Perfecto para una escala corta en Lima. Lo esencial bien organizado.',
+        likes: 45,
+        dislikes: 2,
+        rating: 4
+      }
+    ]
+  },
+  'paseo-costero': {
+    name: 'Paseo Costero',
+    category: 'quick',
+    quickInfo: {
+      photosLabel: 'Mar, vistas',
+      duration: '2h',
+      price: 'S/.15 por persona'
+    },
+    description: 'Un paseo relajante por el malecón con las mejores vistas al océano Pacífico. Ideal para despejarse y tomar aire fresco.',
+    activities: [
+      { time: '16:00', placeName: 'Malecón de Miraflores', placeId: 'barranco' },
+      { time: '17:00', placeName: 'Parque del Amor', placeId: 'barranco' },
+      { time: '17:45', placeName: 'Atardecer en Larcomar', placeId: 'barranco' },
+    ],
+    securityLevel: 'safe',
+    images: [
+      { id: 1, url: '/images/la-punta.jpg', description: 'Vista al mar' },
+      { id: 2, url: barrancoAtardecer, description: 'Atardecer costero' }
+    ],
+    ratingsSummary: {
+      averageRating: 4.7,
+      totalRatings: 189,
+      ratingBreakdown: [78, 17, 4, 1, 0],
+    },
+    comments: [
+      {
+        id: 1,
+        username: 'sunset_lover',
+        userAvatarUrl: 'https://placehold.co/100x100/f43f5e/ffffff?text=S',
+        date: '24/09/2025',
+        text: 'Los atardeceres desde aquí son de otro nivel. Muy recomendado.',
+        likes: 78,
+        dislikes: 0,
+        rating: 5
+      }
+    ]
+  },
+  'cafe-arte': {
+    name: 'Café y Arte',
+    category: 'quick',
+    quickInfo: {
+      photosLabel: 'Café, galerías',
+      duration: '2.5h',
+      price: 'S/.30 por persona'
+    },
+    description: 'Para los amantes del café y el arte. Recorre las mejores cafeterías de especialidad y galerías escondidas de Barranco.',
+    activities: [
+      { time: '10:00', placeName: 'Cafetería de especialidad', placeId: 'barranco' },
+      { time: '11:00', placeName: 'Galería de arte', placeId: 'barranco' },
+      { time: '12:00', placeName: 'Murales de Barranco', placeId: 'barranco' },
+    ],
+    securityLevel: 'safe',
+    images: [
+      { id: 1, url: barrancosalida, description: 'Murales artísticos' },
+      { id: 2, url: barrancoAtardecer, description: 'Café en Barranco' }
+    ],
+    ratingsSummary: {
+      averageRating: 4.6,
+      totalRatings: 98,
+      ratingBreakdown: [72, 20, 6, 1, 1],
+    },
+    comments: [
+      {
+        id: 1,
+        username: 'coffee_art',
+        userAvatarUrl: 'https://placehold.co/100x100/a855f7/ffffff?text=C',
+        date: '21/09/2025',
+        text: 'El café estaba delicioso y las galerías tienen obras muy interesantes.',
+        likes: 23,
+        dislikes: 1,
+        rating: 5
+      }
+    ]
+  },
+  'aventura-lima': {
+    name: 'Lima Aventura',
+    category: 'quick',
+    quickInfo: {
+      photosLabel: 'Deporte, adrenalina',
+      duration: '3h',
+      price: 'S/.80 por persona'
+    },
+    description: 'Para los más aventureros. Parapente sobre los acantilados de Miraflores y paseo en bicicleta por el malecón.',
+    activities: [
+      { time: '09:00', placeName: 'Parapente en Miraflores', placeId: 'barranco' },
+      { time: '11:00', placeName: 'Ciclismo por malecón', placeId: 'barranco' },
+    ],
+    securityLevel: 'safe',
+    images: [
+      { id: 1, url: '/images/la-punta.jpg', description: 'Vista aérea' },
+      { id: 2, url: barrancoAtardecer, description: 'Malecón' }
+    ],
+    ratingsSummary: {
+      averageRating: 4.8,
+      totalRatings: 145,
+      ratingBreakdown: [85, 12, 2, 1, 0],
+    },
+    comments: [
+      {
+        id: 1,
+        username: 'extreme_pe',
+        userAvatarUrl: 'https://placehold.co/100x100/ef4444/ffffff?text=E',
+        date: '19/09/2025',
+        text: '¡El parapente es una experiencia única! Las vistas de Lima desde arriba son increíbles.',
+        likes: 92,
+        dislikes: 1,
+        rating: 5
       }
     ]
   }
