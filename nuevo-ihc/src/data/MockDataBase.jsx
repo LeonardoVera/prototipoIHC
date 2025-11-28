@@ -313,6 +313,16 @@ const itinerariesData = {
         likes: 12,
         dislikes: 0,
         rating: 4
+      },
+      {
+        id: 3,
+        username: 'Rhamses',
+        userAvatarUrl: 'https://placehold.co/100x100/f472b6/ffffff?text=A',
+        date: '18/09/2025',
+        text: 'oño',
+        likes: 12,
+        dislikes: 0,
+        rating: 1
       }
     ]
   }
