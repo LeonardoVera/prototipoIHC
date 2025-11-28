@@ -334,3 +334,39 @@ export const getAllItineraries = () => {
     ...data
   }));
 };
+
+// Calcula el rating promedio y desglose basado en los comentarios
+export const calculateRatingsFromComments = (comments) => {
+  if (!comments || comments.length === 0) {
+    return {
+      averageRating: 0,
+      totalRatings: 0,
+      ratingBreakdown: [0, 0, 0, 0, 0]
+    };
+  }
+
+  // Contar cuántos comentarios tienen cada rating (5, 4, 3, 2, 1)
+  const ratingCounts = [0, 0, 0, 0, 0]; // [5★, 4★, 3★, 2★, 1★]
+  let totalStars = 0;
+
+  comments.forEach(comment => {
+    if (comment.rating >= 1 && comment.rating <= 5) {
+      ratingCounts[5 - comment.rating]++; // Index 0 = 5★, Index 4 = 1★
+      totalStars += comment.rating;
+    }
+  });
+
+  const totalRatings = comments.length;
+  const averageRating = totalStars / totalRatings;
+
+  // Convertir conteos a porcentajes
+  const ratingBreakdown = ratingCounts.map(count => 
+    Math.round((count / totalRatings) * 100)
+  );
+
+  return {
+    averageRating: Number.parseFloat(averageRating.toFixed(1)),
+    totalRatings,
+    ratingBreakdown
+  };
+};

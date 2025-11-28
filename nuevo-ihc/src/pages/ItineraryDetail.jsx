@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 // 1. Importar la función de datos
-import { getItineraryById } from "../data/MockDataBase";
+import { getItineraryById, calculateRatingsFromComments } from "../data/MockDataBase";
 
 // 2. Importar Componentes UI Generales
 import PageHeader from "../components/PageHeader";
@@ -54,7 +54,14 @@ export default function ItineraryDetails({ itineraryIdProp, onCloseModal }) {
   // para manejar cambios de ID correctamente.
   useEffect(() => {
     const data = getItineraryById(id);
-    setCurrentItinerary(data);
+    if (data) {
+      // Calcular ratings basados en los comentarios
+      const calculatedRatings = calculateRatingsFromComments(data.comments);
+      setCurrentItinerary({
+        ...data,
+        ratingsSummary: calculatedRatings
+      });
+    }
     setUserVotes({});
   }, [id]);
 
@@ -114,6 +121,27 @@ export default function ItineraryDetails({ itineraryIdProp, onCloseModal }) {
   };
 
   const handleShare = () => console.log("Compartir");
+
+  const handleNewComment = (newComment) => {
+    setCurrentItinerary(prevData => {
+      const commentWithFlag = { ...newComment, isUserComment: true };
+      const updatedComments = [commentWithFlag, ...prevData.comments];
+      
+      // Recalcular ratings automáticamente basándose en todos los comentarios
+      const updatedRatings = calculateRatingsFromComments(updatedComments);
+      
+      return {
+        ...prevData,
+        comments: updatedComments,
+        ratingsSummary: updatedRatings
+      };
+    });
+  };
+
+  const handleNewRating = (newRating) => {
+    // Ya no necesitamos esta función porque el rating se actualiza automáticamente
+    console.log('Rating actualizado:', newRating);
+  };
 
   if (!currentItinerary) {
     return <div className="min-h-screen flex justify-center items-center">Itinerario no encontrado.</div>;
@@ -194,6 +222,8 @@ export default function ItineraryDetails({ itineraryIdProp, onCloseModal }) {
               comments={currentItinerary.comments}
               userVotes={userVotes}
               onVote={handleCommentVote}
+              onNewRating={handleNewRating}
+              onNewComment={handleNewComment}
             />
           )}
 

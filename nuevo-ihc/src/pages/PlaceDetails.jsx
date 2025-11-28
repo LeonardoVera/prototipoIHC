@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-import { getPlaceById } from "../data/MockDataBase";
+import { getPlaceById, calculateRatingsFromComments } from "../data/MockDataBase";
 
 import TabNavigator from "../components/TabNavigator";
 import TabButton from "../components/TabButton";
@@ -40,7 +40,15 @@ export default function PlaceDetails({placeIdProp, onCloseModal}) {
   const [userVotes, setUserVotes] = useState({});
 
   useEffect(() => {
-    setCurrentPlaceData(getPlaceById(id));
+    const placeData = getPlaceById(id);
+    if (placeData) {
+      // Calcular ratings basados en los comentarios
+      const calculatedRatings = calculateRatingsFromComments(placeData.comments);
+      setCurrentPlaceData({
+        ...placeData,
+        ratingsSummary: calculatedRatings
+      });
+    }
     setUserVotes({});
   }, [id]);
 
@@ -108,45 +116,23 @@ export default function PlaceDetails({placeIdProp, onCloseModal}) {
   const handleNewComment = (newComment) => {
     setCurrentPlaceData(prevData => {
       const commentWithFlag = { ...newComment, isUserComment: true };
+      const updatedComments = [commentWithFlag, ...prevData.comments];
+      
+      // Recalcular ratings automáticamente basándose en todos los comentarios
+      const updatedRatings = calculateRatingsFromComments(updatedComments);
+      
       return {
         ...prevData,
-        comments: [commentWithFlag, ...prevData.comments]
-      }
+        comments: updatedComments,
+        ratingsSummary: updatedRatings
+      };
     });
   };
 
   const handleNewRating = (newRating) => {
-    setCurrentPlaceData(prevData => {
-      const oldSummary = prevData.ratingsSummary;
-      const totalRatings = oldSummary.totalRatings + 1;
-      
-      // Calculamos el nuevo promedio
-      const newAverage = ((oldSummary.averageRating * oldSummary.totalRatings) + newRating) / totalRatings;
-      
-      // Actualizamos el breakdown: sumamos 1 al índice correspondiente
-      // ratingBreakdown es [5★%, 4★%, 3★%, 2★%, 1★%]
-      const newBreakdown = [...oldSummary.ratingBreakdown];
-      
-      // Calculamos el nuevo porcentaje para cada estrella
-      const recalculatedBreakdown = newBreakdown.map((percentage, index) => {
-        const starValue = 5 - index;
-        // Contamos cuántos comentarios tienen esta calificación
-        const count = prevData.comments.filter(c => c.rating === starValue).length;
-        // Si es la nueva calificación, sumamos 1
-        const finalCount = starValue === newRating ? count + 1 : count;
-        // Calculamos el porcentaje
-        return Math.round((finalCount / totalRatings) * 100);
-      });
-      
-      return {
-        ...prevData,
-        ratingsSummary: {
-          averageRating: parseFloat(newAverage.toFixed(1)),
-          totalRatings: totalRatings,
-          ratingBreakdown: recalculatedBreakdown
-        }
-      };
-    });
+    // Ya no necesitamos esta función porque el rating se actualiza automáticamente
+    // cuando se agrega el comentario en handleNewComment
+    console.log('Rating actualizado:', newRating);
   };
 
   if (!currentPlaceData) {
