@@ -1,79 +1,150 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Preferences.css';
 
 function Preferences() {
   const navigate = useNavigate();
 
+  // Estados para cada categoría de preferencias
+  const [destinos, setDestinos] = useState([]);
+  const [actividades, setActividades] = useState([]);
+  const [estilos, setEstilos] = useState([]);
+  const [climas, setClimas] = useState([]);
+
+  // Opciones disponibles
+  const opcionesDestino = ['Playa', 'Montañas', 'Selvas', 'Ciudad', 'Pueblos'];
+  const opcionesActividades = ['Senderismo', 'Compras', 'Gastronomía', 'Museos', 'Deportes'];
+  const opcionesEstilo = ['Aventura', 'Familiar', 'Ecológico', 'Romántico', 'Lujo'];
+  const opcionesClima = ['Cálido', 'Frío', 'Templado'];
+
+  // Función para toggle de selección
+  const toggleSelection = (item, selectedItems, setSelectedItems) => {
+    if (selectedItems.includes(item)) {
+      setSelectedItems(selectedItems.filter(i => i !== item));
+    } else {
+      setSelectedItems([...selectedItems, item]);
+    }
+  };
+
+  // Verificar si hay al menos una selección
+  const hasSelections = destinos.length > 0 || actividades.length > 0 || estilos.length > 0 || climas.length > 0;
+
   const handleContinue = () => {
+    if (hasSelections) {
+      // Aquí podrías guardar las preferencias en un contexto o localStorage
+      console.log('Preferencias guardadas:', { destinos, actividades, estilos, climas });
+      navigate('/home');
+    }
+  };
+
+  const handleSkip = () => {
     navigate('/home');
   };
 
+  // Componente de botón de opción
+  const OptionButton = ({ label, isSelected, onClick }) => (
+    <button
+      onClick={onClick}
+      className={`
+        px-4 py-2.5 rounded-full font-semibold text-sm transition-all duration-200
+        ${isSelected 
+          ? 'bg-amber-500 text-gray-900 shadow-md scale-105 ring-2 ring-amber-600' 
+          : 'bg-amber-400/70 text-gray-800 hover:bg-amber-400'
+        }
+      `}
+    >
+      {label}
+    </button>
+  );
+
+  // Componente de sección de preferencias
+  const PreferenceSection = ({ title, options, selectedItems, setSelectedItems }) => (
+    <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 mb-4">
+      <h2 className="font-bold text-gray-800 mb-3">{title}</h2>
+      <div className="flex flex-wrap gap-2">
+        {options.map((option) => (
+          <OptionButton
+            key={option}
+            label={option}
+            isSelected={selectedItems.includes(option)}
+            onClick={() => toggleSelection(option, selectedItems, setSelectedItems)}
+          />
+        ))}
+      </div>
+    </div>
+  );
+
   return (
-    <div className="preferences-page">
-      {/* Header superior */}
-      <header className="header">
-        <h1 className="title">SELECCIONE SUS PREFERENCIAS</h1>
-      </header>
+    <div className="min-h-screen bg-gray-100 flex justify-center p-4">
+      <div className="max-w-md w-full bg-white shadow-xl rounded-xl overflow-hidden h-[90vh] flex flex-col">
+        
+        {/* Header */}
+        <header className="bg-gradient-to-r from-teal-600 to-teal-700 text-white py-4 px-4 shadow-lg flex-shrink-0">
+          <h1 className="text-center font-bold text-lg tracking-wide">
+            SELECCIONE SUS PREFERENCIAS
+          </h1>
+        </header>
 
-      {/* Contenedor centrado */}
-      <main className="main-preferences">
-        <div className="fields-container">
-          <div className="column">
-            <div className="field-pref">
-              <h2 className="field-title">Tipo de destino</h2>
-              <div className="options-group">
-                <button className="option-btn">Playa</button>
-                <button className="option-btn">Montañas</button>
-                <button className="option-btn">Selvas</button>
-                <button className="option-btn">Ciudad</button>
-                <button className="option-btn">Pueblos</button>
-              </div>
-            </div>
+        {/* Contenido scrolleable */}
+        <main className="flex-grow overflow-y-auto p-4 bg-gray-50">
+          
+          <PreferenceSection
+            title="Tipo de destino"
+            options={opcionesDestino}
+            selectedItems={destinos}
+            setSelectedItems={setDestinos}
+          />
 
-            <div className="field-pref">
-              <h2 className="field-title">Actividades favoritas</h2>
-              <div className="options-group">
-                <button className="option-btn">Senderismo</button>
-                <button className="option-btn">Compras</button>
-                <button className="option-btn">Gastronomía</button>
-                <button className="option-btn">Museos</button>
-                <button className="option-btn">Deportes</button>
-              </div>
-            </div>
-          </div>
+          <PreferenceSection
+            title="Actividades favoritas"
+            options={opcionesActividades}
+            selectedItems={actividades}
+            setSelectedItems={setActividades}
+          />
 
-          <div className="column">
-            <div className="field-pref">
-              <h2 className="field-title">Estilo de viaje</h2>
-              <div className="options-group">
-                <button className="option-btn">Aventura</button>
-                <button className="option-btn">Familiar</button>
-                <button className="option-btn">Ecológico</button>
-                <button className="option-btn">Romántico</button>
-                <button className="option-btn">Lujo</button>
-              </div>
-            </div>
+          <PreferenceSection
+            title="Estilo de viaje"
+            options={opcionesEstilo}
+            selectedItems={estilos}
+            setSelectedItems={setEstilos}
+          />
 
-            <div className="field-pref">
-              <h2 className="field-title">Clima preferido</h2>
-              <div className="options-group">
-                <button className="option-btn">Cálido</button>
-                <button className="option-btn">Frío</button>
-                <button className="option-btn">Templado</button>
-              </div>
-            </div>
-          </div>
+          <PreferenceSection
+            title="Clima preferido"
+            options={opcionesClima}
+            selectedItems={climas}
+            setSelectedItems={setClimas}
+          />
+
+        </main>
+
+        {/* Botones de acción fijos en la parte inferior */}
+        <div className="p-4 bg-white border-t border-gray-200 flex gap-4 flex-shrink-0">
+          <button
+            onClick={handleSkip}
+            className="flex-1 py-3 rounded-full font-semibold text-white transition-colors shadow-md hover:opacity-90"
+            style={{ backgroundColor: '#6c5ce7' }}
+          >
+            Omitir
+          </button>
+          <button
+            onClick={handleContinue}
+            disabled={!hasSelections}
+            className={`
+              flex-1 py-3 rounded-full font-semibold transition-all duration-200 text-white shadow-md
+              ${hasSelections 
+                ? 'hover:opacity-90' 
+                : 'opacity-50 cursor-not-allowed'
+              }
+            `}
+            style={{ backgroundColor: '#6c5ce7' }}
+          >
+            Continuar
+          </button>
         </div>
 
-        <div className="actions">
-          <button className="btn-pref btn-primary" onClick={handleContinue}>Omitir</button>
-          <button className="btn-pref btn-primary" onClick={handleContinue}>Continuar</button>
-        </div>
-      </main>
+      </div>
     </div>
   );
 }
 
 export default Preferences;
-

@@ -25,9 +25,21 @@ export default function RecommendedItineraries() {
   const handleScroll = () => {
     if (carouselRef.current) {
       const scrollLeft = carouselRef.current.scrollLeft;
-      const itemWidth = carouselRef.current.offsetWidth * 0.85;
+      const itemWidth = carouselRef.current.offsetWidth * 0.85 + 12; // 85% + gap de 12px
       const newSlide = Math.round(scrollLeft / itemWidth);
       setCurrentSlide(newSlide);
+    }
+  };
+
+  // Navegar a un slide específico al hacer clic en el indicador
+  const goToSlide = (index) => {
+    if (carouselRef.current) {
+      const itemWidth = carouselRef.current.offsetWidth * 0.85 + 12; // 85% + gap
+      carouselRef.current.scrollTo({
+        left: index * itemWidth,
+        behavior: 'smooth'
+      });
+      setCurrentSlide(index);
     }
   };
 
@@ -86,15 +98,17 @@ export default function RecommendedItineraries() {
               ))}
             </div>
 
-            {/* Indicadores del carrusel */}
-            <div className="flex justify-center gap-1.5 mt-1">
+            {/* Indicadores del carrusel - Clickeables */}
+            <div className="flex justify-center gap-2 mt-2">
               {popularItineraries.map((_, index) => (
-                <div
+                <button
                   key={index}
-                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  onClick={() => goToSlide(index)}
+                  aria-label={`Ir al slide ${index + 1}`}
+                  className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer hover:bg-teal-400 ${
                     currentSlide === index 
-                      ? 'bg-teal-600 w-4' 
-                      : 'bg-gray-300'
+                      ? 'bg-teal-600 w-6' 
+                      : 'bg-gray-300 w-2.5'
                   }`}
                 />
               ))}
