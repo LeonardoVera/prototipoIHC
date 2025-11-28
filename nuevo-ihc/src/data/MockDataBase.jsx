@@ -17,6 +17,7 @@ const placesData = {
     schedule: 'Abierto: 9:00 AM - 5:00 PM',
     price: 'Entrada: S/ 15.00',
     security: { level: 'safe' },
+    coordinates: { lat: -12.1108, lng: -77.0292 },
     images: [
       { id: 1, url: imgHuacaMain, description: 'Vista de la pirámide principal' },
       { id: 2, url: imgHuacaCerca, description: 'Adobes de cerca' },
@@ -74,6 +75,7 @@ const placesData = {
     schedule: 'Abierto: 3:00 PM - 10:00 PM',
     price: 'Entrada: S/ 4.00',
     security: { level: 'warning' },
+    coordinates: { lat: -12.0738, lng: -77.0524 },
     images: [
       { id: 1, url: 'https://peru.info/archivos/publicacion/157-imagen-15292027122021.jpg', description: 'Fuente de la Fantasía' },
       { id: 2, url: 'https://circuitomagicodelagua.pe/wp-content/uploads/2025/02/history1.jpg', description: 'Fuente de la Fantasía' },
@@ -109,6 +111,7 @@ const placesData = {
     schedule: 'Abierto: 11:00 AM - 1:00 AM',
     price: 'Consumo promedio: S/ 45.00',
     security: { level: 'safe' },
+    coordinates: { lat: -12.0464, lng: -77.0283 },
     images: [
       { id: 1, url: museoPisco, description: 'Barra principal y cata' },
       { id: 2, url: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b', description: 'Barra principal y cata' },
@@ -145,6 +148,7 @@ const placesData = {
     schedule: 'Abierto: 12:00 PM - 5:00 PM',
     price: 'Platos desde: S/ 65.00',
     security: { level: 'safe' },
+    coordinates: { lat: -12.1189, lng: -77.0335 },
     images: [
       { id: 1, url: cevicheriaMar, description: 'Ceviche clásico' },
       { id: 2, url: 'https://images.unsplash.com/photo-1535399831218-d5bd36d1a6b3', description: 'Ceviche clásico' }
@@ -180,6 +184,7 @@ const placesData = {
     schedule: 'Abierto: 24 horas',
     price: 'Gratis (Museos costo aparte)',
     security: { level: 'warning' },
+    coordinates: { lat: -12.0464, lng: -77.0428 },
     images: [
       { id: 1, url: centroHistorico, description: 'Plaza de Armas' },
       { id: 2, url: catacumbas, description: 'Balcones coloniales' },
@@ -216,6 +221,7 @@ const placesData = {
     schedule: 'Abierto: 24 horas (Zona turística)',
     price: 'Gratis (Locales costo aparte)',
     security: { level: 'safe' },
+    coordinates: { lat: -12.1467, lng: -77.0208 },
     images: [
       { id: 1, url: barrancosalida, description: 'Bajada de Baños y murales' },
       { id: 2, url: barrancoAtardecer, description: 'Puente de los Suspiros' },

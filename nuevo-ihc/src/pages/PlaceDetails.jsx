@@ -7,6 +7,8 @@ import TabNavigator from "../components/TabNavigator";
 import TabButton from "../components/TabButton";
 import Button from "../components/Button";
 import PageHeader from "../components/PageHeader";
+import BottomSheet from "../components/BottomSheet";
+import RouteMap from "../components/RouteMap";
 
 import ImageCarousel from "../components/details/ImageCarousel";
 import SectionHeader from "../components/details/SectionHeader";
@@ -30,6 +32,8 @@ const TicketIcon = () => (<IoPricetag />);
 export default function PlaceDetails({placeIdProp, onCloseModal}) {
   const [activeTab, setActiveTab] = useState('info');
   const { id: paramId } = useParams();
+  
+  const [isMapOpen, setIsMapOpen] = useState(false);
 
   const id = placeIdProp || paramId;
   
@@ -51,6 +55,14 @@ export default function PlaceDetails({placeIdProp, onCloseModal}) {
     }
     setUserVotes({});
   }, [id]);
+
+  const handleDirectionsClick = () => {
+    if (currentPlaceData && currentPlaceData.coordinates) {
+      setIsMapOpen(true);
+    } else {
+      alert("Coordenadas no disponibles para este lugar.");
+    }
+  };
 
   const handleCommentVote = (commentId, voteType) => {
     const currentVote = userVotes[commentId];
@@ -130,8 +142,7 @@ export default function PlaceDetails({placeIdProp, onCloseModal}) {
   };
 
   const handleNewRating = (newRating) => {
-    // Ya no necesitamos esta función porque el rating se actualiza automáticamente
-    // cuando se agrega el comentario en handleNewComment
+   
     console.log('Rating actualizado:', newRating);
   };
 
@@ -169,8 +180,8 @@ export default function PlaceDetails({placeIdProp, onCloseModal}) {
               
               <ImageCarousel images={currentPlaceData.images} />
 
-              <div className="my-6">
-                <Button to="/itinerario">
+              <div className="my-6 flex justify-center">
+                <Button onClick={handleDirectionsClick} className="w-full">
                   Cómo llegar
                 </Button>
               </div>
@@ -230,6 +241,18 @@ export default function PlaceDetails({placeIdProp, onCloseModal}) {
         </div>
 
       </div>
+
+      {currentPlaceData && currentPlaceData.coordinates && (
+        <BottomSheet 
+          isOpen={isMapOpen} 
+          onClose={() => setIsMapOpen(false)}
+        >
+          <RouteMap 
+            placeName={currentPlaceData.name}
+            placeCoordinates={currentPlaceData.coordinates}
+          />
+        </BottomSheet>
+      )}
     </div>
   );
 }
