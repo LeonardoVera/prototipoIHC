@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-// 1. Importar la función de datos
-import { getItineraryById, calculateRatingsFromComments, getPlaceById } from "../data/MockDataBase";
+// 1. Importar el contexto y funciones auxiliares
+import { usePlaces } from "../context/PlacesContext";
+import { getPlaceById } from "../data/MockDataBase";
 
 // 2. Importar Componentes UI Generales
 import PageHeader from "../components/PageHeader";
@@ -41,32 +42,20 @@ const RouteIcon = () => (<IoMapOutline />);
 export default function ItineraryDetails({ itineraryIdProp, onCloseModal }) {
   const [activeTab, setActiveTab] = useState('info');
   const { id: paramId } = useParams();
+  const { getItineraryById, addCommentToItinerary, updateItineraryCommentVote } = usePlaces();
 
   // 2. CAMBIO: Determinamos el ID real
-  // Si itineraryIdProp existe (estamos en modal), lo usamos.
-  // Si no, usamos el de la URL (navegación normal).
   const id = itineraryIdProp || paramId;
 
-  // Estado local para la data
-  // Inicializamos con null para evitar errores si el ID cambia rápido
-  const [currentItinerary, setCurrentItinerary] = useState(null);
   const [userVotes, setUserVotes] = useState({});
   const [isMapOpen, setIsMapOpen] = useState(false);
   const [selectedPlaceId, setSelectedPlaceId] = useState(null);
 
-  // 3. CAMBIO: Cargar datos con useEffect
-  // Es más seguro cargar la data aquí que directamente en la inicialización
-  // para manejar cambios de ID correctamente.
+  // Obtener datos del itinerario desde el contexto (siempre actualizados)
+  const currentItinerary = getItineraryById(id);
+
+  // Resetear votos cuando cambia el itinerario
   useEffect(() => {
-    const data = getItineraryById(id);
-    if (data) {
-      // Calcular ratings basados en los comentarios
-      const calculatedRatings = calculateRatingsFromComments(data.comments);
-      setCurrentItinerary({
-        ...data,
-        ratingsSummary: calculatedRatings
-      });
-    }
     setUserVotes({});
   }, [id]);
 
@@ -76,56 +65,53 @@ export default function ItineraryDetails({ itineraryIdProp, onCloseModal }) {
 
   // Manejador de Votos
   const handleCommentVote = (commentId, voteType) => {
-    // ... (Esta lógica es idéntica, no cambia nada) ...
+    if (!currentItinerary) return;
+    
     const currentVote = userVotes[commentId];
-    let newComments = [...currentItinerary.comments];
-    const commentIndex = newComments.findIndex(c => c.id === commentId);
-    let commentToUpdate = { ...newComments[commentIndex] };
+    const comment = currentItinerary.comments.find(c => c.id === commentId);
+    if (!comment) return;
+
+    let updatedComment = { ...comment };
     let newVoteStatus = 'none';
 
     if (voteType === 'like') {
       if (currentVote === 'liked') {
-        commentToUpdate.likes -= 1;
+        updatedComment.likes -= 1;
         newVoteStatus = 'none';
       } else if (currentVote === 'disliked') {
-        commentToUpdate.likes += 1;
-        commentToUpdate.dislikes -= 1;
+        updatedComment.likes += 1;
+        updatedComment.dislikes -= 1;
         newVoteStatus = 'liked';
       } else {
-        commentToUpdate.likes += 1;
+        updatedComment.likes += 1;
         newVoteStatus = 'liked';
       }
     } else if (voteType === 'dislike') {
       if (currentVote === 'disliked') {
-        commentToUpdate.dislikes -= 1;
+        updatedComment.dislikes -= 1;
         newVoteStatus = 'none';
       } else if (currentVote === 'liked') {
-        commentToUpdate.dislikes += 1;
-        commentToUpdate.likes -= 1;
+        updatedComment.dislikes += 1;
+        updatedComment.likes -= 1;
         newVoteStatus = 'disliked';
       } else {
-        commentToUpdate.dislikes += 1;
+        updatedComment.dislikes += 1;
         newVoteStatus = 'disliked';
       }
     }
 
-    newComments[commentIndex] = commentToUpdate;
+    // Actualizar en el contexto (persistente)
+    updateItineraryCommentVote(id, commentId, updatedComment);
+
     setUserVotes(prevVotes => ({
       ...prevVotes,
       [commentId]: newVoteStatus === 'none' ? undefined : newVoteStatus
     }));
-    setCurrentItinerary(prevData => ({
-      ...prevData,
-      comments: newComments
-    }));
   };
 
   const handleClose = () => {
-    console.log("Cerrar/Volver");
     if (onCloseModal) {
       onCloseModal();
-    } else {
-      console.log("Volver (Navegación normal)");
     }
   };
 
@@ -136,23 +122,12 @@ export default function ItineraryDetails({ itineraryIdProp, onCloseModal }) {
   };
 
   const handleNewComment = (newComment) => {
-    setCurrentItinerary(prevData => {
-      const commentWithFlag = { ...newComment, isUserComment: true };
-      const updatedComments = [commentWithFlag, ...prevData.comments];
-      
-      // Recalcular ratings automáticamente basándose en todos los comentarios
-      const updatedRatings = calculateRatingsFromComments(updatedComments);
-      
-      return {
-        ...prevData,
-        comments: updatedComments,
-        ratingsSummary: updatedRatings
-      };
-    });
+    const commentWithFlag = { ...newComment, isUserComment: true };
+    // Agregar comentario al contexto (persistente)
+    addCommentToItinerary(id, commentWithFlag);
   };
 
   const handleNewRating = (newRating) => {
-    // Ya no necesitamos esta función porque el rating se actualiza automáticamente
     console.log('Rating actualizado:', newRating);
   };
 

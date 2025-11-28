@@ -37,7 +37,8 @@ export default function MenuOverlay({ isOpen, onClose }) {
       {/* Backdrop */}
       {isOpen && (
         <div
-          className="absolute inset-0 bg-black/50 z-40"
+          className="absolute inset-0 bg-black/50"
+          style={{ zIndex: 9998 }}
           onClick={onClose}
         />
       )}
@@ -45,10 +46,11 @@ export default function MenuOverlay({ isOpen, onClose }) {
       {/* Menu Sidebar */}
       <div
         className={`
-          absolute left-0 top-0 h-full w-64 bg-white shadow-lg z-50
+          absolute left-0 top-0 h-full w-64 bg-white shadow-lg
           transform transition-transform duration-300 ease-in-out
           ${isOpen ? 'translate-x-0' : '-translate-x-full'}
         `}
+        style={{ zIndex: 9999 }}
       >
         {/* Header del Menu */}
         <div className="flex items-center justify-between p-4 border-b">

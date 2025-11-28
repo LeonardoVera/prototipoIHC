@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { getAllPlaces } from '../data/MockDataBase';
-import { IoTimeOutline, IoClose } from "react-icons/io5";
+import { usePlaces } from '../context/PlacesContext';
+import { IoClose, IoLocationSharp } from "react-icons/io5";
+import { IoCashOutline } from "react-icons/io5";
 import { FaStar } from "react-icons/fa";
 import { BsThreeDots } from "react-icons/bs";
 
@@ -10,6 +11,9 @@ import TopBar from '../components/TopBar';
 import MenuOverlay from '../components/MenuOverlay';
 
 export default function RecommendedPlaces() {
+  const { getAllPlaces } = usePlaces();
+  
+  // Obtener lugares con ratings calculados desde el contexto
   const places = getAllPlaces();
 
   const [menuOpen, setMenuOpen] = useState(false);
@@ -290,10 +294,11 @@ export default function RecommendedPlaces() {
                                 
                                 <div className="flex items-center justify-between text-sm text-gray-600">
                                     <div className="flex items-center gap-1">
-                                        <IoTimeOutline size={14} />
-                                        <span className="text-xs">15 min</span>
+                                        <IoCashOutline size={14} />
+                                        <span className="text-xs">{place.price?.replace('Entrada: ', '') || 'Gratis'}</span>
                                         <span className="mx-1">•</span>
-                                        <span className="text-xs">2.5 km</span>
+                                        <IoLocationSharp size={14} />
+                                        <span className="text-xs truncate max-w-[80px]">{place.location?.split(',')[0] || 'Lima'}</span>
                                     </div>
 
                                     <div className="flex items-center gap-1 font-semibold text-gray-800">

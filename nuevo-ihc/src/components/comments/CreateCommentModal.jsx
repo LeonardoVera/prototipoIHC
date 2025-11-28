@@ -1,13 +1,17 @@
 import { useState } from 'react';
 import { FaUserCircle } from 'react-icons/fa';
 import { IoClose } from 'react-icons/io5';
+import { useUser } from '../../context/UserContext';
 
 export default function CreateCommentModal({ isOpen, onClose, onSubmit }) {
+  const { user } = useUser();
   const [commentText, setCommentText] = useState('');
   const [selectedRating, setSelectedRating] = useState(0);
   const [hoveredRating, setHoveredRating] = useState(0);
 
-  const currentUserName = "Tu nombre"; // O podrías pasarlo como prop
+  // Usar el nombre del usuario logueado o "Usuario" como fallback
+  const currentUserName = user?.username || "Usuario";
+  const userAvatarUrl = user?.avatarUrl || null;
 
   const handleSubmit = () => {
     // Validación básica
@@ -61,7 +65,15 @@ export default function CreateCommentModal({ isOpen, onClose, onSubmit }) {
         <div className="p-6">
           {/* Usuario */}
           <div className="flex items-center gap-2 mb-4">
-            <FaUserCircle className="w-8 h-8 text-blue-500" />
+            {userAvatarUrl ? (
+              <img
+                src={userAvatarUrl}
+                alt={currentUserName}
+                className="w-8 h-8 rounded-full object-cover"
+              />
+            ) : (
+              <FaUserCircle className="w-8 h-8 text-blue-500" />
+            )}
             <span className="font-semibold text-sm text-gray-900">
               {currentUserName}
             </span>
