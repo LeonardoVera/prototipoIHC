@@ -58,11 +58,11 @@ export default function InteractiveMap({ locations, onMarkerClick, selectedMarke
   const centerLng = locations.reduce((sum, loc) => sum + loc.lng, 0) / locations.length;
   
   return (
-    <div className="relative w-full h-80 rounded-xl overflow-hidden shadow-lg">
+    <div className="relative w-full h-80 rounded-xl overflow-hidden shadow-lg z-0">
       <MapContainer 
         center={[centerLat, centerLng]} 
         zoom={13} 
-        style={{ height: '100%', width: '100%' }}
+        style={{ height: '100%', width: '100%', zIndex: 0 }}
         zoomControl={true}
       >
         <TileLayer
@@ -103,7 +103,7 @@ export default function InteractiveMap({ locations, onMarkerClick, selectedMarke
       
       {/* Botón de Ver lugar (aparece cuando hay selección) */}
       {selectedMarkerId && selectedLocation && (
-        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-[1000]">
+        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-10">
           <button className="bg-amber-400 hover:bg-amber-500 text-gray-900 font-bold py-2.5 px-6 rounded-full shadow-xl transition-all duration-300 hover:scale-105 text-sm">
             Ver {selectedLocation.name}
           </button>
