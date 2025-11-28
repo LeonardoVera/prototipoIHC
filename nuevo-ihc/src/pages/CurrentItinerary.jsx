@@ -3,8 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import TopBar from '../components/TopBar';
 import MenuOverlay from '../components/MenuOverlay';
 import TimelineItem from '../components/itinerary/TimelineItem';
+import PlaceDetails from './PlaceDetails';
+import BottomSheet from '../components/BottomSheet';
 
 export default function CurrentItinerary() {
+
+  const [selectedPlaceId, setSelectedPlaceId] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -17,7 +21,7 @@ export default function CurrentItinerary() {
   ];
 
   const handleInfoClick = (placeId) => {
-    navigate(`/lugar/${placeId}`);
+    setSelectedPlaceId(placeId);
   };
 
   return (
@@ -78,6 +82,16 @@ export default function CurrentItinerary() {
           </svg>
         </button>
       </div>
+
+      <BottomSheet
+        isOpen={!!selectedPlaceId} // Es true si hay un ID seleccionado
+        onClose={() => setSelectedPlaceId(null)}
+      >
+        <PlaceDetails
+          placeIdProp={selectedPlaceId}
+          onCloseModal={() => setSelectedPlaceId(null)}
+        />
+      </BottomSheet>
     </div>
   );
 }
