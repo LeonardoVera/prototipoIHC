@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { getAllPlaces } from '../data/MockDataBase';
+import { usePlaces } from '../context/PlacesContext';
 import { IoClose, IoLocationSharp } from "react-icons/io5";
 import { IoCashOutline } from "react-icons/io5";
 import { FaStar } from "react-icons/fa";
@@ -11,6 +11,9 @@ import TopBar from '../components/TopBar';
 import MenuOverlay from '../components/MenuOverlay';
 
 export default function RecommendedPlaces() {
+  const { getAllPlaces } = usePlaces();
+  
+  // Obtener lugares con ratings calculados desde el contexto
   const places = getAllPlaces();
 
   const [menuOpen, setMenuOpen] = useState(false);

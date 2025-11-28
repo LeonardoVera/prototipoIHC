@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { getAllItineraries } from '../data/MockDataBase';
+import { usePlaces } from '../context/PlacesContext';
 
 // Componentes reutilizados
 import BottomSheet from '../components/BottomSheet';
@@ -8,6 +8,7 @@ import TopBar from '../components/TopBar';
 import MenuOverlay from '../components/MenuOverlay';
 
 export default function RecommendedItineraries() {
+  const { getAllItineraries } = usePlaces();
   const itineraries = getAllItineraries();
   
   const [menuOpen, setMenuOpen] = useState(false);

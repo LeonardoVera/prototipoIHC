@@ -2,6 +2,7 @@ import React from 'react';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
 
 import { UserProvider } from './context/UserContext';
+import { PlacesProvider } from './context/PlacesContext';
 import PlaceDetails from './pages/PlaceDetails';
 import ItineraryDetails from './pages/ItineraryDetail';
 import CurrentItinerary from './pages/CurrentItinerary';
@@ -17,11 +18,12 @@ import Profile from './pages/Profile';
 function App() {
   return (
     <UserProvider>
-      <MemoryRouter 
-        // Le decimos qué "URL de mentira" debe simular.
-        initialEntries={["/"]}
-      >
-        <Routes>
+      <PlacesProvider>
+        <MemoryRouter 
+          // Le decimos qué "URL de mentira" debe simular.
+          initialEntries={["/"]}
+        >
+          <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/home" element={<RecommendedPlaces />} />
         <Route path="/itinerarios" element={<RecommendedItineraries />} />
@@ -37,10 +39,11 @@ function App() {
         {/* Ruta para el itinerario actual */}
         <Route path="/itinerario-actual" element={<CurrentItinerary />} />
         
-        {/* Ruta para lugares cercanos */}
-        <Route path="/lugares-cercanos" element={<NearbyPlaces />} />
-        </Routes>
-      </MemoryRouter>
+          {/* Ruta para lugares cercanos */}
+          <Route path="/lugares-cercanos" element={<NearbyPlaces />} />
+          </Routes>
+        </MemoryRouter>
+      </PlacesProvider>
     </UserProvider>
   );
 }

@@ -1,8 +1,12 @@
 import { FaUserCircle } from 'react-icons/fa'; 
+import { useUser } from '../../context/UserContext';
 
-export default function CreateCommentInput({ userAvatarUrl, onClick }) {
+export default function CreateCommentInput({ onClick }) {
+  const { user } = useUser();
   
-  const currentUserName = "Tú"; // O podrías pasarlo como prop
+  // Usar el nombre del usuario logueado o "Tú" como fallback
+  const currentUserName = user?.username || "Tú";
+  const userAvatarUrl = user?.avatarUrl || null;
 
   return (
     <div className="w-full my-4">
