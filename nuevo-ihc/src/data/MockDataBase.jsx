@@ -269,7 +269,7 @@ const itinerariesData = {
     name: 'Tour relax',
     quickInfo: {
       photosLabel: 'Fotos, paisaje',
-      duration: '8h',
+      duration: '10h',
       price: 'S/.60 por persona'
     },
     description: 'Un recorrido pensado para quienes quieren disfrutar lo mejor de Lima en un solo día. Inicia con la frescura de Huaca Pucllana y sigue con una experiencia única en el Museo del Pisco...',
